@@ -1,3 +1,5 @@
+import Model.Banker;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -11,7 +13,7 @@ public class ListBanker
     private ArrayList<Banker> bankerList;
 
     public ListBanker() {
-        this.bankerList=new ArrayList<Banker>();
+        this.bankerList = new ArrayList<Banker>();
     }
 
     public ArrayList<Banker> get_banker_list() {
@@ -24,7 +26,7 @@ public class ListBanker
 
     public void remove_banker(int bankerid){
         for (Banker b:this.bankerList) {
-            if(bankerid==b.get_banker_id())
+            if(bankerid==b.getBankerId())
                 this.bankerList.remove(b);
         }
     }
@@ -32,7 +34,7 @@ public class ListBanker
     public Banker search_banker(int bankerid) {
         for(Banker a:this.bankerList)
         {
-            if(bankerid == a.get_banker_id())
+            if(bankerid == a.getBankerId())
                 return a;
         }
         return null;

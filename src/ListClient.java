@@ -1,3 +1,5 @@
+import Model.Client;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -7,33 +9,33 @@ import java.util.Arrays;
 
 public class ListClient
 {
-    ArrayList<BClient> clientArrayList;
+    ArrayList<Client> clientArrayList;
     private static final String filepath="src/Files/Client.det";
 
     public ListClient() {
-        this.clientArrayList = new ArrayList<BClient>();
+        this.clientArrayList = new ArrayList<Client>();
     }
 
-    public ArrayList<BClient> getClientArrayList() {
+    public ArrayList<Client> getClientArrayList() {
         return clientArrayList;
     }
 
-    public void add_to_list(BClient client){
+    public void add_to_list(Client client){
         this.clientArrayList.add(client);
     }
 
     public void remove_banker(int clientid){
-        for (BClient b:this.clientArrayList) {
-            if(clientid==b.get_client_Id())
+        for (Client b:this.clientArrayList) {
+            if(clientid==b.getClientId())
                 this.clientArrayList.remove(b);
         }
         this.WriteObjectToFile();
     }
 
-    public BClient search_client(int clientid) {
-        for(BClient a:this.clientArrayList)
+    public Client search_client(int clientid) {
+        for(Client a:this.clientArrayList)
         {
-            if(clientid == a.get_client_Id()) {
+            if(clientid == a.getClientId()) {
                 this.WriteObjectToFile();
                 return a;
             }
@@ -42,7 +44,7 @@ public class ListClient
     }
 
     public void deposit_money(int sum,int accountid) {
-        this.search_client(accountid).deposit_money(sum,accountid);
+        this.search_client(accountid).depositMoney(sum,accountid);
         WriteObjectToFile();
 
     }
@@ -53,7 +55,7 @@ public class ListClient
 
             FileOutputStream fileOut = new FileOutputStream(filepath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            BClient[] clientToWrite = clientArrayList.toArray(new BClient[clientArrayList.size()]);
+            Client[] clientToWrite = clientArrayList.toArray(new Client[clientArrayList.size()]);
             objectOut.writeObject(clientToWrite);
             objectOut.close();
 
@@ -67,7 +69,7 @@ public class ListClient
         try {
             FileInputStream fis = new FileInputStream(filepath);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            BClient[] clientToRead = (BClient [])ois.readObject();
+            Client[] clientToRead = (Client[])ois.readObject();
             clientArrayList.addAll(Arrays.asList(clientToRead));
             ois.close();
 
@@ -79,7 +81,7 @@ public class ListClient
     @Override
     public String toString() {
         String string=new String();
-        for (BClient c:this.clientArrayList) {
+        for (Client c:this.clientArrayList) {
             string+=c.toString()+" ";
         }
         return string;
