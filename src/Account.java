@@ -2,6 +2,7 @@ import java.io.Serializable;
 
 public class Account implements Serializable
 {
+
    private int balance;
    private int account_id;
    private static int new_id;//Maybe not static?
