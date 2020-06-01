@@ -5,14 +5,14 @@ import java.awt.*;
 
 public class ViewApp extends JFrame {
 
-	
-
-
 	private JPanel LoginPanel = new JPanel();
 	private JTextField UsernameEditText;
 	private JPasswordField PasswordTextField;
 	private JButton LoginButton;
     private JRadioButton ClassifyButton;
+    private JLabel InvalidUsername;
+    private JRadioButton ManagerCheck;
+    private final ButtonGroup buttonGroup = new ButtonGroup();
 
     public ViewApp() {
         setResizable(false);
@@ -23,11 +23,9 @@ public class ViewApp extends JFrame {
         this.getContentPane().setLayout(new CardLayout(0, 0));
        
 
-        
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         LoginPanel.setBackground(new Color(135, 206, 235));
-        
         
         getContentPane().add(LoginPanel, "name_673367547882700");
         LoginPanel.setLayout(null);
@@ -38,7 +36,7 @@ public class ViewApp extends JFrame {
         LoginPanel.add(LoginLabel);
         
         UsernameEditText = new JTextField();
-        UsernameEditText.setBounds(388, 177, 155, 22);
+        UsernameEditText.setBounds(388, 177, 174, 22);
         LoginPanel.add(UsernameEditText);
         UsernameEditText.setColumns(10);
         
@@ -55,22 +53,29 @@ public class ViewApp extends JFrame {
         LoginButton = new JButton("Login");
         LoginButton.setSelectedIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\loginsmall.png"));
         LoginButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\loginsmall.png"));
-        LoginButton.setBounds(423, 306, 83, 25);
+        LoginButton.setBounds(388, 306, 174, 25);
         LoginPanel.add(LoginButton);
         
         PasswordTextField = new JPasswordField();
-        PasswordTextField.setBounds(388, 226, 155, 22);
+        PasswordTextField.setBounds(388, 226, 174, 22);
         LoginPanel.add(PasswordTextField);
         
-        ClassifyButton = new JRadioButton("Banker Login");
-        ClassifyButton.setBounds(410, 277, 108, 20);
+        ClassifyButton = new JRadioButton("Banker");
+        buttonGroup.add(ClassifyButton);
+        ClassifyButton.setBounds(479, 255, 83, 20);
         LoginPanel.add(ClassifyButton);
         
-
+        ManagerCheck = new JRadioButton("Manager");
+        buttonGroup.add(ManagerCheck);
+        ManagerCheck.setBounds(388, 255, 81, 20);
+        LoginPanel.add(ManagerCheck);
         
-
-        
-
+        InvalidUsername = new JLabel("Invalid Username or Password! Please insert a valid information!");
+        InvalidUsername.setForeground(Color.RED);
+        InvalidUsername.setHorizontalAlignment(SwingConstants.TRAILING);
+        InvalidUsername.setBounds(262, 134, 377, 30);
+        LoginPanel.add(InvalidUsername);
+        InvalidUsername.setVisible(false);
     }
 
     public JPanel getLoginPanel() {
@@ -111,5 +116,22 @@ public class ViewApp extends JFrame {
 
     public void setClassifyButton(JRadioButton classifyButton) {
         ClassifyButton = classifyButton;
+    }
+
+    public JLabel getInvalidUsername() {
+        return InvalidUsername;
+    }
+
+    public void setInvalidUsername(JLabel invalidUsername) {
+        InvalidUsername = invalidUsername;
+    }
+
+
+    public JRadioButton getManagerCheck() {
+        return ManagerCheck;
+    }
+
+    public void setManagerCheck(JRadioButton managerCheck) {
+        ManagerCheck = managerCheck;
     }
 }

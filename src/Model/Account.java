@@ -1,7 +1,6 @@
 package Model;
 
 import Database.ConnectionManager;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,6 +29,7 @@ public class Account
 
    public void setBalance(int balance) {
       this.balance = balance;
+      this.updateAccount();
    }
 
    public int getAccountId() {
@@ -38,10 +38,12 @@ public class Account
 
    public void addToBalance(int money){
       this.balance+=money;
+      this.updateAccount();
    }
 
    public void setAccountId(int account_id) {
       this.account_id = account_id;
+      this.updateAccount();
    }
 
    public void insertAccount(int client_id){
@@ -63,10 +65,11 @@ public class Account
    public void updateAccount() {
       Connection con = ConnectionManager.getConnection();
       try {
-         String query = "UPDATE account SET account_id = ?, id = ?, balance = ?";
+         String query = "UPDATE account SET account_id = ?, balance = ? WHERE account_id = ?";
          PreparedStatement preparedStmt = con.prepareStatement(query);
          preparedStmt.setInt(1,this.account_id);
          preparedStmt.setInt(2,this.balance);
+         preparedStmt.setInt(3,this.account_id);
          preparedStmt.executeUpdate();
          preparedStmt.close();
       } catch (SQLException throwables) {

@@ -3,10 +3,7 @@ package Model;
 import java.sql.*;
 import java.util.Scanner;
 import Database.*;
-//TODO: Sign up;
-//TODO: Forget password;
-//TODO: Invalid username;
-//TODO: How to do account updates using inheritance;
+
 public class Client extends Person implements DefaultClient
 {
     private int income;
@@ -21,9 +18,6 @@ public class Client extends Person implements DefaultClient
         this.income=income;
         this.my_accounts=new Accountlist();
         this.my_user=new User(username,password);
-        while(!this.my_user.ValidateUsername()) {
-            this.my_user.setUsername(in.nextLine());
-        }
         this.clientId=clientId;
         this.insertClient();
     }
@@ -60,7 +54,10 @@ public class Client extends Person implements DefaultClient
              rs = preparedStmt.executeQuery();
              while(rs.next())
              {
-                 this.my_accounts.addAccountToList(new Account(rs.getInt("balance"),rs.getInt("account_id")));
+                 if(rs.getString("children_name") != null)
+                     this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"), rs.getString("children_name"), rs.getInt("parent_id")));
+               else
+                     this.my_accounts.addAccountToList(new Account(rs.getInt("balance"), rs.getInt("account_id")));
              }
          }catch (SQLException throwables) {
              throwables.printStackTrace();
@@ -137,14 +134,18 @@ public class Client extends Person implements DefaultClient
 
     public void newAccount(int balance){
         Account account = new Account(balance);
-        account.updateAccount();
+        account.insertAccount(this.clientId);
         this.getMyAccounts().getList().put(account.getAccountId(),account);
     }
 
-    public void newChildrenAccount(int balance, String name, Account dadid){
+    public void newChildrenAccount(int balance, String name, int dadid){
         Account account = new ChildrenAccount(balance,name,dadid);
-
         this.getMyAccounts().getList().put(account.getAccountId(),account);
+        account.insertAccount(this.clientId);
+        if(account instanceof ChildrenAccount)
+        {
+            ((ChildrenAccount) account).updateChildrenAccount();
+        }
     }
 
     public void insertClient(){

@@ -33,14 +33,15 @@ public class User
         this.password=password;
     }
 
-    public boolean ValidateUsername(){
+    public boolean ValidateClientUsernameAndPassword(){
         Connection con = ConnectionManager.getConnection();
-        String query = "SELECT username FROM client WHERE username = ?";
+        String query = "SELECT * FROM client WHERE username = ? AND password = ?";
         try {
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, this.username);
+            preparedStmt.setString(2, this.password);
             rs = preparedStmt.executeQuery();
-            if (rs.next())
+            if (!rs.next())
                 return false;
             else
                 return true;
@@ -49,6 +50,43 @@ public class User
         }
         return false;
     }
+
+    public boolean ValidateBankerUsernameAndPassword(){
+        Connection con = ConnectionManager.getConnection();
+        String query = "SELECT * FROM banker WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, this.username);
+            preparedStmt.setString(2, this.password);
+            rs = preparedStmt.executeQuery();
+            if (!rs.next())
+                return false;
+            else
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public boolean ValidateBankMangaer(){
+        Connection con = ConnectionManager.getConnection();
+        String query = "SELECT * FROM banker WHERE username = ? AND password = ?";
+        try {
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, this.username);
+            preparedStmt.setString(2, this.password);
+            rs = preparedStmt.executeQuery();
+            rs.next();
+            if (!rs.getBoolean("is_manager"))
+                return false;
+            else
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Model.User{" +

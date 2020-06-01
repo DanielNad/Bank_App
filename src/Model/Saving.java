@@ -2,9 +2,8 @@ package Model;
 
 public class Saving extends Account
 {
-    //TODO: SQL inheritance
-    //TODO: Unique update method
-    //TODO: SQL Constructor
+    //TODO: SQL update
+
     private int saved_money;
 
     public Saving(int balance,int saved_money) {

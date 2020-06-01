@@ -1,8 +1,11 @@
 package Controller;
 import Model.*;
 import View.*;
-
 import javax.swing.*;
+
+//TODO: Forgot Password
+//TODO: Create tables if there are no existing ones already
+//TODO: Error handling - transferring to an invalid client id etc.
 
 public class Controller {
     private Banker banker;
@@ -16,21 +19,54 @@ public class Controller {
         this.user = null;
         this.viewApp = viewApp;
         JButton login_button = this.viewApp.getLoginButton();
-        login_button.addActionListener(e -> {this.ClientLogin();});
+        login_button.addActionListener(e -> {this.Login();});
     }
 
-    public void ClientLogin(){
-        if(!IsBanker())
+    public void Login(){
+        String password = new String(viewApp.getPasswordTextField().getPassword());
+        this.user = new User(viewApp.getUsernameEditText().getText(),password);
+        if(IsBanker())
         {
-            String password = new String(viewApp.getPasswordTextField().getPassword());
-            this.user = new User(viewApp.getUsernameEditText().getText(),password);
-            this.client = new Client(user);
-            System.out.println(client);
-
+            if(!user.ValidateBankerUsernameAndPassword()) {
+                viewApp.getInvalidUsername().setVisible(true);
+            }
+            else {
+                this.banker = new Banker(user);
+                System.out.println(client);
+            }
         }
+        else if (IsManager())
+        {
+            if(!user.ValidateBankerUsernameAndPassword() && user.ValidateBankMangaer()) {
+                viewApp.getInvalidUsername().setVisible(true);
+            }
+            else {
+                this.banker = new BankManager(user);
+                if(this.banker instanceof BankManager)
+                {
+                    System.out.println((BankManager)banker);
+                }
+            }
+        }
+        else
+        {
+            if(!user.ValidateClientUsernameAndPassword()) {
+                viewApp.getInvalidUsername().setVisible(true);
+            }
+            else {
+                this.client = new Client(user);
+                System.out.println(client);
+            }
+        }
+
     }
 
     public boolean IsBanker(){
         return this.viewApp.getClassifyButton().isSelected();
+    }
+
+    public boolean IsManager()
+    {
+        return this.viewApp.getManagerCheck().isSelected();
     }
 }

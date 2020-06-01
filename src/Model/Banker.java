@@ -3,21 +3,41 @@ package Model;
 import Database.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Banker extends Person
 {
-    //TODO: Sign up;
-    //TODO: Forget password;
-    //TODO: Invalid username;
-    //Todo: delete showclientInfo
-    //TODO: How to inherite using SQL
+    //Todo: delete showclientInfo - should be a GUI function
+
     private User my_user;
     private int banker_id;
+    private ResultSet rs = null;
+
     public Banker(String last_name, String first_name, String address, User my_user, int banker_id) {
         super(last_name, first_name, address);
         this.my_user=my_user;
         this.banker_id=banker_id;
+        this.InsertBanker();
+    }
+
+    public Banker(User my_user) {
+        this.my_user = my_user;
+        Connection con = ConnectionManager.getConnection();
+        try {
+            String query = "SELECT * FROM banker where username = ? AND password = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(2,this.getMyUser().getPassword());
+            preparedStmt.setString(1,this.getMyUser().getUsername());
+            rs = preparedStmt.executeQuery();
+            rs.next();
+            this.banker_id=rs.getInt("banker_id");
+            this.setAddress(rs.getNString("address"));
+            this.setFirstName(rs.getNString("fname"));
+            this.setLastName(rs.getNString("lname"));
+        } catch (SQLException throwables) {
+            //throwables.printStackTrace();
+        }
     }
 
     public User getMyUser() { return my_user; }
@@ -26,7 +46,7 @@ public class Banker extends Person
         return banker_id;
     }
 
-    //public void showClientInfo(Client client){ System.out.println(client);}
+    public void showClientInfo(int client_id){ }
 
     public boolean transferClientToClient(Client client1, int fromAccount, int toAccount, Client client2, int money) {
         Account account1=client1.getMyAccounts().searchAccount(fromAccount);
