@@ -4,7 +4,6 @@ public class BusinessClient extends Client
 {
     //TODO: Delete Class!!
     //TODO: Delete SQL Column = company_name
-
     private String company_name;
 
     public BusinessClient(String last_name, String first_name, String address, int income, String username,String password, String company_name,int clientid) {

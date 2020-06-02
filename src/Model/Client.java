@@ -6,6 +6,8 @@ import Database.*;
 
 public class Client extends Person implements DefaultClient
 {
+    //TODO: Create Saving
+
     private int income;
     private Accountlist my_accounts;
     private User my_user;
