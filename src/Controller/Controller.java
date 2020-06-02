@@ -6,7 +6,10 @@ import javax.swing.*;
 //TODO: Forgot Password
 //TODO: Create tables if there are no existing ones already
 //TODO: Error handling - transferring to an invalid client id etc.
-//TODO: Login page - logo, organize in a panel.
+//TODO: Login page - logo, organize in a panel.3
+//TODO: Design patterns
+//TODO: Retrieve other account types from DB
+//TODO: Review SQL Insert,Update,Delete,Constructors & set/changing methods.
 
 public class Controller {
     private Banker banker;
@@ -28,7 +31,7 @@ public class Controller {
         this.user = new User(viewApp.getUsernameEditText().getText(),password);
         if(IsBanker())
         {
-            if(!user.ValidateBankerUsernameAndPassword()) {
+            if(!user.validateBankerUsernameAndPassword()) {
                 viewApp.getInvalidUsername().setVisible(true);
             }
             else {
@@ -38,7 +41,7 @@ public class Controller {
         }
         else if (IsManager())
         {
-            if(!user.ValidateBankerUsernameAndPassword() && user.ValidateBankMangaer()) {
+            if(!user.validateBankerUsernameAndPassword() && user.validateBankMangaer()) {
                 viewApp.getInvalidUsername().setVisible(true);
             }
             else {
@@ -51,7 +54,7 @@ public class Controller {
         }
         else
         {
-            if(!user.ValidateClientUsernameAndPassword()) {
+            if(!user.validateClientUsernameAndPassword()) {
                 viewApp.getInvalidUsername().setVisible(true);
             }
             else {

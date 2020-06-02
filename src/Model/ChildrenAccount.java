@@ -28,7 +28,6 @@ public class ChildrenAccount extends Account
     public void setParentId(Account dadid) {
         this.parent_account_id = dadid.getAccountId();
         this.updateChildrenAccount();
-        this.updateChildrenAccount();
     }
 
     public void setChildrenName(String children_name) {
@@ -46,7 +45,7 @@ public class ChildrenAccount extends Account
     public void updateChildrenAccount(){
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "UPDATE account SET children_name = ?, parent_id = ? WHERE account_id = ?;";
+            String query = "UPDATE account SET children_name = ?, parent_account_id = ? WHERE account_id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1,this.children_name);
             preparedStmt.setInt(2,this.parent_account_id);

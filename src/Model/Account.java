@@ -21,6 +21,7 @@ public class Account
    public Account(int balance, int account_id) {
       this.balance = balance;
       this.account_id = account_id;
+      this.updateAccount();
    }
 
    public int getBalance() {

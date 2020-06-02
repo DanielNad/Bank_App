@@ -4,10 +4,10 @@ import java.sql.*;
 import java.util.Scanner;
 import Database.*;
 
+//TODO: Retrieve accounts: create new constructors for each class that inherits from account - the constructor should get account id. then change the retrieve accounts function.
+
 public class Client extends Person implements DefaultClient
 {
-    //TODO: Create Saving
-
     private int income;
     private Accountlist my_accounts;
     private User my_user;
@@ -58,8 +58,13 @@ public class Client extends Person implements DefaultClient
              {
                  if(rs.getString("children_name") != null)
                      this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"), rs.getString("children_name"), rs.getInt("parent_id")));
-               else
+                 else if(rs.getBoolean("children_saving"))
+                     this.my_accounts.addAccountToList(new ChildrenSaving(rs.getInt("balance")));
+                 else if(rs.getString("saved_money") != null)
+                     this.my_accounts.addAccountToList(new Saving(rs.getInt("balance")));
+                 else
                      this.my_accounts.addAccountToList(new Account(rs.getInt("balance"), rs.getInt("account_id")));
+
              }
          }catch (SQLException throwables) {
              throwables.printStackTrace();

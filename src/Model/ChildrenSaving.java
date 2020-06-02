@@ -1,19 +1,15 @@
 package Model;
 
 import Database.ConnectionManager;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ChildrenSaving extends Saving
 {
-    private int children_saving_id;
-
-    public ChildrenSaving(int balance, int saved_money, int children_account_id) {
-        super(balance, saved_money);
-        this.children_saving_id=children_account_id;
-        this.updateChildrenSaving();
+    public ChildrenSaving(int balance) {
+        super(balance);
+        this.updateSaving();
     }
 
     public void brakeSaving(Account account){
@@ -26,9 +22,9 @@ public class ChildrenSaving extends Saving
     public void updateChildrenSaving(){
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "UPDATE account SET children_saving_id = ? WHERE account_id = ?;";
+            String query = "UPDATE account SET children_saving = ? WHERE account_id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1,this.children_saving_id);
+            preparedStmt.setBoolean(1,true);
             preparedStmt.setInt(2,this.getAccountId());
             preparedStmt.executeUpdate();
             preparedStmt.close();

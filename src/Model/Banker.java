@@ -18,7 +18,7 @@ public class Banker extends Person
         super(last_name, first_name, address);
         this.my_user=my_user;
         this.banker_id=banker_id;
-        this.InsertBanker();
+        this.insertBanker();
     }
 
     public Banker(User my_user) {
@@ -44,6 +44,45 @@ public class Banker extends Person
 
     public int getBankerId() {
         return banker_id;
+    }
+
+    public void createNewClient(String first_name, String last_name, String address, int income, String username, String password, int id){
+
+       Client client = new Client(last_name,first_name,address,income,username,password,id);
+       client.insertClient();
+    }
+
+    public void createNewAccount(int balance, Client client){
+
+        Account account = new Account (balance);
+        account.insertAccount(client.getClientId());
+        client.getMyAccounts().addAccountToList(account);
+    }
+
+    public void createNewChildrenAccount(int balance, String children_name,Client client, Account parent_id ){
+        ChildrenAccount children_account = new ChildrenAccount(balance,children_name,parent_id.getAccountId());
+        children_account.insertAccount(client.getClientId());
+        client.getMyAccounts().addAccountToList(children_account);
+    }
+
+    public void createNewSaving(int balance,Client client){
+       Saving saving = new Saving(balance);
+       saving.insertAccount(client.getClientId());
+       client.getMyAccounts().addAccountToList(saving);
+    }
+
+    public void createChildrenSaving(){
+
+    }
+
+    public void editClientInfo(Client client, String first_name, String last_name, String address, int income, String password){
+
+        client.setFirstName(first_name);
+        client.setLastName(last_name);
+        client.setAddress(address);
+        client.setIncome(income);
+        client.getMyUser().changePassword(password);
+        client.updateClient();
     }
 
     public void showClientInfo(int client_id){ }
@@ -88,30 +127,7 @@ public class Banker extends Person
         return false;
     }
 
-    public void createNewClient(String first_name, String last_name, String address, int income, String username, String password, Accountlist accountlist, int id){
-
-       Client client = new Client(last_name,first_name,address,income,username,password,id);
-       client.insertClient();
-    }
-
-    public void createAccount(int balance, Client client){
-
-        Account account = new Account (balance);
-        account.insertAccount(client.getClientId());
-        client.getMyAccounts().addAccountToList(account);
-    }
-
-    public void editClientInfo(Client client, String first_name, String last_name, String address, int income, String password){
-
-        client.setFirstName(first_name);
-        client.setLastName(last_name);
-        client.setAddress(address);
-        client.setIncome(income);
-        client.getMyUser().changePassword(password);
-        client.updateClient();
-    }
-
-    public void InsertBanker(){
+    public void insertBanker(){
         Connection con = ConnectionManager.getConnection();
         String query = "INSERT INTO banker (banker_id,password,address,fname,lname,username) VALUES (?,?,?,?,?,?)";
         try {
@@ -130,7 +146,7 @@ public class Banker extends Person
         }
     }
 
-    public void UpdateBanker() {
+    public void updateBanker() {
         Connection con = ConnectionManager.getConnection();
         try {
             String query = "UPDATE banker SET banker_id = ?, password = ?, address = ?,fname = ?,lname = ?,username = ? WHERE banker_id = ?;";
@@ -149,7 +165,7 @@ public class Banker extends Person
         }
     }
 
-    public void DeleteBanker(){
+    public void deleteBanker(){
         Connection con = ConnectionManager.getConnection();
         try{
             String query = "DELETE FROM banker Where banker_id = ?";

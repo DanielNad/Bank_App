@@ -33,7 +33,7 @@ public class User
         this.password=password;
     }
 
-    public boolean ValidateClientUsernameAndPassword(){
+    public boolean validateClientUsernameAndPassword(){
         Connection con = ConnectionManager.getConnection();
         String query = "SELECT * FROM client WHERE username = ? AND password = ?";
         try {
@@ -51,7 +51,7 @@ public class User
         return false;
     }
 
-    public boolean ValidateBankerUsernameAndPassword(){
+    public boolean validateBankerUsernameAndPassword(){
         Connection con = ConnectionManager.getConnection();
         String query = "SELECT * FROM banker WHERE username = ? AND password = ?";
         try {
@@ -68,7 +68,8 @@ public class User
         }
         return false;
     }
-    public boolean ValidateBankMangaer(){
+
+    public boolean validateBankMangaer(){
         Connection con = ConnectionManager.getConnection();
         String query = "SELECT * FROM banker WHERE username = ? AND password = ?";
         try {
