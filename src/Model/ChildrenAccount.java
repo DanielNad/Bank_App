@@ -14,6 +14,7 @@ public class ChildrenAccount extends Account
         super(balance);
         this.children_name=children_name;
         this.parent_account_id = parent_account;
+        this.updateChildrenAccount();
     }
 
     public String getChildrenName() {
@@ -26,24 +27,30 @@ public class ChildrenAccount extends Account
 
     public void setParentId(Account dadid) {
         this.parent_account_id = dadid.getAccountId();
+        this.updateChildrenAccount();
+        this.updateChildrenAccount();
     }
 
     public void setChildrenName(String children_name) {
         this.children_name = children_name;
+        this.updateChildrenAccount();
     }
 
     public void askForMoney(Account parent_account,int sum){
         parent_account.addToBalance(-sum);
+        parent_account.updateAccount();
         this.addToBalance(sum);
+        this.updateAccount();
     }
 
     public void updateChildrenAccount(){
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "UPDATE account SET children_name = ?, parent_id WHERE banker_id = ?;";
+            String query = "UPDATE account SET children_name = ?, parent_id = ? WHERE account_id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1,this.children_name);
             preparedStmt.setInt(2,this.parent_account_id);
+            preparedStmt.setInt(3,this.getAccountId());
             preparedStmt.executeUpdate();
             preparedStmt.close();
         } catch (SQLException throwables) {
