@@ -5,11 +5,8 @@ import javax.swing.*;
 
 //TODO: Forgot Password
 //TODO: Create tables if there are no existing ones already
-//TODO: Error handling - transferring to an invalid client id etc.
 //TODO: Login page - logo, organize in a panel.3
 //TODO: Design patterns
-//TODO: Retrieve other account types from DB
-//TODO: Review SQL Insert,Update,Delete,Constructors & set/changing methods.
 
 public class Controller {
     private Banker banker;
