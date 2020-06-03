@@ -8,17 +8,15 @@ import java.sql.SQLException;
 public class Account
 {
    private int balance;
-   private int account_id;
-   private static int new_id;
+   private String account_id;
 
-   public Account(int balance) {
+   public Account(int balance,int client_id,int number_of_accounts) {
       this.balance = balance;
-      this.account_id = new_id;
-      new_id++;
-      this.updateAccount();
+      this.account_id = client_id + "-" + number_of_accounts ;
+      this.insertAccount(client_id);
    }
 
-   public Account(int balance, int account_id) {
+   public Account(int balance, String account_id) {
       this.balance = balance;
       this.account_id = account_id;
       this.updateAccount();
@@ -33,7 +31,7 @@ public class Account
       this.updateAccount();
    }
 
-   public int getAccountId() {
+   public String getAccountId() {
       return account_id;
    }
 
@@ -42,7 +40,7 @@ public class Account
       this.updateAccount();
    }
 
-   public void setAccountId(int account_id) {
+   public void setAccountId(String account_id) {
       this.account_id = account_id;
       this.updateAccount();
    }
@@ -53,7 +51,7 @@ public class Account
       try {
          PreparedStatement preparedStmt = con.prepareStatement(query);
          preparedStmt = con.prepareStatement(query);
-         preparedStmt.setInt(1,account_id);
+         preparedStmt.setString(1,account_id);
          preparedStmt.setInt(2,client_id);
          preparedStmt.setInt(3,this.balance);
          preparedStmt.executeUpdate();
@@ -68,9 +66,9 @@ public class Account
       try {
          String query = "UPDATE account SET account_id = ?, balance = ? WHERE account_id = ?";
          PreparedStatement preparedStmt = con.prepareStatement(query);
-         preparedStmt.setInt(1,this.account_id);
+         preparedStmt.setString(1,this.account_id);
          preparedStmt.setInt(2,this.balance);
-         preparedStmt.setInt(3,this.account_id);
+         preparedStmt.setString(3,this.account_id);
          preparedStmt.executeUpdate();
          preparedStmt.close();
       } catch (SQLException throwables) {
@@ -83,7 +81,7 @@ public class Account
       try{
          String query = "DELETE FROM account Where account_id = ?";
          PreparedStatement preparedStmt = con.prepareStatement(query);
-         preparedStmt.setInt(1,this.account_id);
+         preparedStmt.setString(1,this.account_id);
          preparedStmt.executeUpdate();
       }catch(SQLException throwables){
          throwables.printStackTrace();

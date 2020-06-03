@@ -7,12 +7,12 @@ import java.sql.SQLException;
 
 public class ChildrenSaving extends Saving
 {
-    public ChildrenSaving(int balance) {
-        super(balance);
+    public ChildrenSaving(int balance,int client_id,int number_of_accounts) {
+        super(balance,client_id,number_of_accounts);
         this.updateChildrenSaving();
     }
 
-    public ChildrenSaving(int balance,int account_id){
+    public ChildrenSaving(int balance,String account_id){
         super(balance, account_id);
         this.updateChildrenSaving();
     }
@@ -30,7 +30,7 @@ public class ChildrenSaving extends Saving
             String query = "UPDATE account SET children_saving = ? WHERE account_id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setBoolean(1,true);
-            preparedStmt.setInt(2,this.getAccountId());
+            preparedStmt.setString(2,this.getAccountId());
             preparedStmt.executeUpdate();
             preparedStmt.close();
         } catch (SQLException throwables) {

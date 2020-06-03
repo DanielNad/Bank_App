@@ -9,13 +9,13 @@ public class Saving extends Account
 {
     private int saved_money;
 
-    public Saving(int balance) {
-        super(balance);
+    public Saving(int balance,int client_id,int number_of_accounts) {
+        super(balance,client_id,number_of_accounts);
         this.saved_money=0;
         this.updateSaving();
     }
 
-    public Saving(int balance,int account_id){
+    public Saving(int balance,String account_id){
         super(balance,account_id);
         this.saved_money = 0;
         this.updateSaving();
@@ -41,7 +41,7 @@ public class Saving extends Account
         String query = "UPDATE account SET saved_money = ? WHERE account_id = ?;";
         PreparedStatement preparedStmt = con.prepareStatement(query);
         preparedStmt.setInt(1,this.saved_money);
-        preparedStmt.setInt(2,this.getAccountId());
+        preparedStmt.setString(2,this.getAccountId());
         preparedStmt.executeUpdate();
         preparedStmt.close();
     } catch (SQLException throwables) {

@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public class Accountlist
 {
-    private HashMap<Integer,Account> list;
+    private HashMap<String,Account> list;
 
     public Accountlist() {
-        this.list=new HashMap<Integer, Account>();
+        this.list=new HashMap<String, Account>();
     }
 
-    public HashMap<Integer,Account> getList() {
+    public HashMap<String,Account> getList() {
         return list;
     }
 
