@@ -9,7 +9,12 @@ public class ChildrenSaving extends Saving
 {
     public ChildrenSaving(int balance) {
         super(balance);
-        this.updateSaving();
+        this.updateChildrenSaving();
+    }
+
+    public ChildrenSaving(int balance,int account_id){
+        super(balance, account_id);
+        this.updateChildrenSaving();
     }
 
     public void brakeSaving(Account account){

@@ -15,6 +15,12 @@ public class Saving extends Account
         this.updateSaving();
     }
 
+    public Saving(int balance,int account_id){
+        super(balance,account_id);
+        this.saved_money = 0;
+        this.updateSaving();
+    }
+
     public int getSaved_money() {
         return saved_money;
     }

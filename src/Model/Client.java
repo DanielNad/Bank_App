@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.Scanner;
 import Database.*;
 
-//TODO: Retrieve accounts: create new constructors for each class that inherits from account - the constructor should get account id. then change the retrieve accounts function.
-
 public class Client extends Person implements DefaultClient
 {
     private int income;
@@ -57,13 +55,13 @@ public class Client extends Person implements DefaultClient
              while(rs.next())
              {
                  if(rs.getString("children_name") != null)
-                     this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"), rs.getString("children_name"), rs.getInt("parent_id")));
+                     this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"),rs.getString("children_name"),rs.getInt("parent_account_id"),rs.getInt("account_id")));
                  else if(rs.getBoolean("children_saving"))
-                     this.my_accounts.addAccountToList(new ChildrenSaving(rs.getInt("balance")));
+                     this.my_accounts.addAccountToList(new ChildrenSaving(rs.getInt("balance"),rs.getInt("account_id")));
                  else if(rs.getString("saved_money") != null)
-                     this.my_accounts.addAccountToList(new Saving(rs.getInt("balance")));
+                     this.my_accounts.addAccountToList(new Saving(rs.getInt("balance"),rs.getInt("account_id")));
                  else
-                     this.my_accounts.addAccountToList(new Account(rs.getInt("balance"), rs.getInt("account_id")));
+                     this.my_accounts.addAccountToList(new Account(rs.getInt("balance"),rs.getInt("account_id")));
 
              }
          }catch (SQLException throwables) {
@@ -160,7 +158,6 @@ public class Client extends Person implements DefaultClient
         String query = "INSERT INTO client (id,income,password,address,fname,lname,username) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1,this.clientId);
             preparedStmt.setInt(2,this.getIncome());
             preparedStmt.setString(3,this.getMyUser().getPassword());

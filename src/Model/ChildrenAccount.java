@@ -17,6 +17,13 @@ public class ChildrenAccount extends Account
         this.updateChildrenAccount();
     }
 
+    public ChildrenAccount(int balance,String children_name,int parent_account_id,int account_id){
+        super(balance,account_id);
+        this.children_name = children_name;
+        this.parent_account_id = parent_account_id;
+        this.updateChildrenAccount();
+    }
+
     public String getChildrenName() {
         return children_name;
     }
