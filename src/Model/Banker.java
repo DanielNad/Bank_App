@@ -8,8 +8,6 @@ import java.sql.SQLException;
 
 public class Banker extends Person
 {
-    //Todo: delete showclientInfo - should be a GUI function
-
     private User my_user;
     private int banker_id;
     private ResultSet rs = null;
@@ -54,25 +52,31 @@ public class Banker extends Person
 
     public void createNewAccount(int balance, Client client){
 
-        Account account = new Account (balance);
-        account.insertAccount(client.getClientId());
+        Account account = new Account (balance,client.getClientId(),client.getNumber_of_accounts());
+        client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        client.updateClient();
         client.getMyAccounts().addAccountToList(account);
     }
 
     public void createNewChildrenAccount(int balance, String children_name,Client client, Account parent_id ){
-        ChildrenAccount children_account = new ChildrenAccount(balance,children_name,parent_id.getAccountId());
-        children_account.insertAccount(client.getClientId());
+        ChildrenAccount children_account = new ChildrenAccount(balance,children_name,client.getClientId(),parent_id.getAccountId(),client.getNumber_of_accounts());
+        client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        client.updateClient();
         client.getMyAccounts().addAccountToList(children_account);
     }
 
     public void createNewSaving(int balance,Client client){
-       Saving saving = new Saving(balance);
-       saving.insertAccount(client.getClientId());
+       Saving saving = new Saving(balance,client.getClientId(),client.getNumber_of_accounts());
+       client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+       client.updateClient();
        client.getMyAccounts().addAccountToList(saving);
     }
 
-    public void createChildrenSaving(){
-
+    public void createChildrenSaving(int balance,Client client){
+        ChildrenSaving children_saving = new ChildrenSaving(balance,client.getClientId(),client.getNumber_of_accounts());
+        client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        client.updateClient();
+        client.getMyAccounts().addAccountToList(children_saving);
     }
 
     public void editClientInfo(Client client, String first_name, String last_name, String address, int income, String password){
@@ -84,8 +88,6 @@ public class Banker extends Person
         client.getMyUser().changePassword(password);
         client.updateClient();
     }
-
-    public void showClientInfo(int client_id){ }
 
     public boolean transferClientToClient(Client client1, int fromAccount, int toAccount, Client client2, int money) {
         Account account1=client1.getMyAccounts().searchAccount(fromAccount);

@@ -47,6 +47,11 @@ public class BankManager extends Banker {
 
     @Override
     public String toString() {
-        return "BankManager { } ";
+        return "BankerManager{" +
+                "my_user=" + this.getMyUser() +
+                ", banker_id=" + this.getBankerId() +
+                " first name="+this.getFirstName()+
+                " last name="+this.getLastName()+
+                '}';
     }
 }

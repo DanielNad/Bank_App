@@ -8,16 +8,16 @@ import java.sql.SQLException;
 public class ChildrenAccount extends Account
 {
     private String children_name;
-    private int parent_account_id;
+    private String parent_account_id;
 
-    public ChildrenAccount(int balance,String children_name,int parent_account) {
-        super(balance);
+    public ChildrenAccount(int balance,String children_name,int client_id,String parent_account_id,int number_of_accounts) {
+        super(balance,client_id,number_of_accounts);
         this.children_name=children_name;
-        this.parent_account_id = parent_account;
+        this.parent_account_id = parent_account_id;
         this.updateChildrenAccount();
     }
 
-    public ChildrenAccount(int balance,String children_name,int parent_account_id,int account_id){
+    public ChildrenAccount(int balance,String children_name,String parent_account_id,String account_id){
         super(balance,account_id);
         this.children_name = children_name;
         this.parent_account_id = parent_account_id;
@@ -28,7 +28,7 @@ public class ChildrenAccount extends Account
         return children_name;
     }
 
-    public int getParentId() {
+    public String getParentId() {
         return parent_account_id;
     }
 
@@ -55,8 +55,8 @@ public class ChildrenAccount extends Account
             String query = "UPDATE account SET children_name = ?, parent_account_id = ? WHERE account_id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1,this.children_name);
-            preparedStmt.setInt(2,this.parent_account_id);
-            preparedStmt.setInt(3,this.getAccountId());
+            preparedStmt.setString(2,this.parent_account_id);
+            preparedStmt.setString(3,this.getAccountId());
             preparedStmt.executeUpdate();
             preparedStmt.close();
         } catch (SQLException throwables) {

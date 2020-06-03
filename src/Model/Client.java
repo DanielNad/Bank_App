@@ -10,6 +10,7 @@ public class Client extends Person implements DefaultClient
     private Accountlist my_accounts;
     private User my_user;
     private int clientId;
+    private int number_of_accounts;
     private ResultSet rs = null;
     Scanner in = new Scanner(System.in);
 
@@ -19,6 +20,7 @@ public class Client extends Person implements DefaultClient
         this.my_accounts=new Accountlist();
         this.my_user=new User(username,password);
         this.clientId=clientId;
+        this.number_of_accounts = 1;
         this.insertClient();
     }
 
@@ -37,11 +39,11 @@ public class Client extends Person implements DefaultClient
             this.setFirstName(rs.getNString("fname"));
             this.setLastName(rs.getNString("lname"));
             this.income = rs.getInt("income");
+            this.number_of_accounts = rs.getInt("number_of_accounts");
             this.retrieveAccounts();
         } catch (SQLException throwables) {
             //throwables.printStackTrace();
         }
-
     }
 
      public void retrieveAccounts(){
@@ -55,13 +57,13 @@ public class Client extends Person implements DefaultClient
              while(rs.next())
              {
                  if(rs.getString("children_name") != null)
-                     this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"),rs.getString("children_name"),rs.getInt("parent_account_id"),rs.getInt("account_id")));
+                     this.my_accounts.addAccountToList(new ChildrenAccount(rs.getInt("balance"),rs.getString("children_name"),rs.getString("parent_account_id"),rs.getString("account_id")));
                  else if(rs.getBoolean("children_saving"))
-                     this.my_accounts.addAccountToList(new ChildrenSaving(rs.getInt("balance"),rs.getInt("account_id")));
+                     this.my_accounts.addAccountToList(new ChildrenSaving(rs.getInt("balance"),rs.getString("account_id")));
                  else if(rs.getString("saved_money") != null)
-                     this.my_accounts.addAccountToList(new Saving(rs.getInt("balance"),rs.getInt("account_id")));
+                     this.my_accounts.addAccountToList(new Saving(rs.getInt("balance"),rs.getString("account_id")));
                  else
-                     this.my_accounts.addAccountToList(new Account(rs.getInt("balance"),rs.getInt("account_id")));
+                     this.my_accounts.addAccountToList(new Account(rs.getInt("balance"),rs.getString("account_id")));
 
              }
          }catch (SQLException throwables) {
@@ -85,15 +87,23 @@ public class Client extends Person implements DefaultClient
         return clientId;
     }
 
+    public int getNumber_of_accounts() {
+        return number_of_accounts;
+    }
+
     public void setIncome(int income) {
         this.income = income;
+    }
+
+    public void setNumber_of_accounts(int number_of_accounts) {
+        this.number_of_accounts = number_of_accounts;
     }
 
     @Override
     public String toString() {
 
         StringBuilder stringBuilder=new StringBuilder();
-        for (int r:this.getMyAccounts().getList().keySet()) {
+        for (String r:this.getMyAccounts().getList().keySet()) {
             stringBuilder.append("\n");
             stringBuilder.append("account="+this.getMyAccounts().getList().get(r));
 
@@ -138,15 +148,17 @@ public class Client extends Person implements DefaultClient
     }
 
     public void newAccount(int balance){
-        Account account = new Account(balance);
-        account.insertAccount(this.clientId);
+        Account account = new Account(balance,this.clientId,this.number_of_accounts);
+        this.number_of_accounts++;
+        this.updateClient();
         this.getMyAccounts().getList().put(account.getAccountId(),account);
     }
 
-    public void newChildrenAccount(int balance, String name, int dadid){
-        Account account = new ChildrenAccount(balance,name,dadid);
+    public void newChildrenAccount(int balance, String name, String parent_account_id){
+        Account account = new ChildrenAccount(balance,name,this.clientId,parent_account_id,this.number_of_accounts);
+        this.number_of_accounts++;
+        this.updateClient();
         this.getMyAccounts().getList().put(account.getAccountId(),account);
-        account.insertAccount(this.clientId);
         if(account instanceof ChildrenAccount)
         {
             ((ChildrenAccount) account).updateChildrenAccount();
@@ -155,7 +167,7 @@ public class Client extends Person implements DefaultClient
 
     public void insertClient(){
         Connection con = ConnectionManager.getConnection();
-        String query = "INSERT INTO client (id,income,password,address,fname,lname,username) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO client (id,income,password,address,fname,lname,username,number_of_accounts) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1,this.clientId);
@@ -165,6 +177,7 @@ public class Client extends Person implements DefaultClient
             preparedStmt.setString(5,this.getFirstName());
             preparedStmt.setString(6,this.getLastName());
             preparedStmt.setString(7,this.getMyUser().getUsername());
+            preparedStmt.setInt(8,this.number_of_accounts);
             preparedStmt.executeUpdate();
             preparedStmt.close();
         } catch (SQLException throwables) {
@@ -175,7 +188,7 @@ public class Client extends Person implements DefaultClient
     public void updateClient() {
         Connection con = ConnectionManager.getConnection();
         try {
-            String query = "UPDATE client SET id = ?,income = ?, password = ?, address = ?,fname = ?,lname = ?,username = ? WHERE id = ?;";
+            String query = "UPDATE client SET id = ?,income = ?, password = ?, address = ?,fname = ?,lname = ?,username = ?,number_of_accounts = ? WHERE id = ?;";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1,this.getClientId());
             preparedStmt.setInt(2,this.getIncome());
@@ -184,7 +197,8 @@ public class Client extends Person implements DefaultClient
             preparedStmt.setString(5,this.getFirstName());
             preparedStmt.setString(6,this.getLastName());
             preparedStmt.setString(7,this.getMyUser().getUsername());
-            preparedStmt.setInt(8,this.getClientId());
+            preparedStmt.setInt(8,this.getNumber_of_accounts());
+            preparedStmt.setInt(9,this.getClientId());
             preparedStmt.executeUpdate();
             preparedStmt.close();
         } catch (SQLException throwables) {
