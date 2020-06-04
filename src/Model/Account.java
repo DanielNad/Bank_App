@@ -3,6 +3,7 @@ package Model;
 import Database.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Account
@@ -11,6 +12,7 @@ public class Account
    private String account_id;
 
    public Account(int balance,int client_id,int number_of_accounts) {
+      number_of_accounts++;
       this.balance = balance;
       this.account_id = client_id + "-" + number_of_accounts ;
       this.insertAccount(client_id);
@@ -20,6 +22,24 @@ public class Account
       this.balance = balance;
       this.account_id = account_id;
       this.updateAccount();
+   }
+
+   public Account (String account_id){
+      this.account_id = account_id;
+      Connection con = ConnectionManager.getConnection();
+      try {
+         ResultSet rs = null;
+         String query = "SELECT * FROM account WHERE account_id = ?";
+         PreparedStatement preparedStmt = con.prepareStatement(query);
+         preparedStmt.setString(1,this.account_id);
+         rs = preparedStmt.executeQuery();
+         rs.next();
+         this.balance = rs.getInt("balance");
+         preparedStmt.close();
+      } catch (SQLException throwables) {
+         throwables.printStackTrace();
+      }
+
    }
 
    public int getBalance() {
@@ -74,6 +94,39 @@ public class Account
       } catch (SQLException throwables) {
          throwables.printStackTrace();
       }
+   }
+
+   public void updateAccount(String account_id, int sum){
+      Connection con = ConnectionManager.getConnection();
+      try {
+         String query = "UPDATE account SET balance = ? WHERE account_id = ?";
+         PreparedStatement preparedStmt = con.prepareStatement(query);
+         preparedStmt.setString(1,this.account_id);
+         preparedStmt.setInt(2,this.balance);
+         preparedStmt.setString(3,this.account_id);
+         preparedStmt.executeUpdate();
+         preparedStmt.close();
+      } catch (SQLException throwables) {
+         throwables.printStackTrace();
+      }
+   }
+
+   public boolean validateAccount(String account_id){
+      Connection con = ConnectionManager.getConnection();
+      String query = "SELECT * FROM account WHERE account_id = ?";
+      try {
+         ResultSet rs = null;
+         PreparedStatement preparedStmt = con.prepareStatement(query);
+         preparedStmt.setString(1, account_id);
+         rs = preparedStmt.executeQuery();
+         if (!rs.next())
+            return false;
+         else
+            return true;
+      } catch (SQLException throwables) {
+         throwables.printStackTrace();
+      }
+      return false;
    }
 
    public void deleteAccount(){

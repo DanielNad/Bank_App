@@ -20,7 +20,7 @@ public class Client extends Person implements DefaultClient
         this.my_accounts=new Accountlist();
         this.my_user=new User(username,password);
         this.clientId=clientId;
-        this.number_of_accounts = 1;
+        this.number_of_accounts = 0;
         this.insertClient();
     }
 
@@ -118,45 +118,49 @@ public class Client extends Person implements DefaultClient
     }
 
     @Override
-    public boolean transferMoney(Client client, int money, int from_id, int to_id) {
+    public boolean transferMoney(int money, String from_id, String to_id) {
 
-        Account account1=this.my_accounts.searchAccount(from_id);
-        Account account2=client.my_accounts.searchAccount(to_id);
-        if(account1.getBalance()<money)
-            return false;
-        else{
-            account1.addToBalance(-money);
-            account2.addToBalance(money);
+        Account account1 = this.my_accounts.searchAccount(from_id);
+        if(this.validateAccount(to_id)) {
+            Account account2 = new Account(to_id);
+            if(account1.getBalance()<money)
+                return false;
+            else{
+                account1.addToBalance(-money);
+                account2.addToBalance(money);
+            }
+            return true;
         }
-        return true;
+        else
+            return false;
     }
 
     @Override
-    public void depositMoney(int sum, int accountid) {
-        Account account=this.getMyAccounts().searchAccount(accountid);
+    public void depositMoney(int sum, String accountid) {
+        Account account = this.getMyAccounts().searchAccount(accountid);
         account.addToBalance(sum);
     }
 
     @Override
-    public boolean withdrawCash(int sum, int accountid) {
+    public boolean withdrawCash(int sum, String accountid) {
         Account account=this.getMyAccounts().searchAccount(accountid);
         if(account.getBalance()>=sum) {
-            account.addToBalance(sum);
+            account.addToBalance(-sum);
             return true;
         }
             return false;
     }
 
-    public void newAccount(int balance){
-        Account account = new Account(balance,this.clientId,this.number_of_accounts);
+    public void newAccount(){
         this.number_of_accounts++;
+        Account account = new Account(0,this.clientId,this.number_of_accounts);
         this.updateClient();
         this.getMyAccounts().getList().put(account.getAccountId(),account);
     }
 
-    public void newChildrenAccount(int balance, String name, String parent_account_id){
-        Account account = new ChildrenAccount(balance,name,this.clientId,parent_account_id,this.number_of_accounts);
+    public void newChildrenAccount(String name, String parent_account_id){
         this.number_of_accounts++;
+        Account account = new ChildrenAccount(0,name,this.clientId,parent_account_id,this.number_of_accounts);
         this.updateClient();
         this.getMyAccounts().getList().put(account.getAccountId(),account);
         if(account instanceof ChildrenAccount)
@@ -216,5 +220,23 @@ public class Client extends Person implements DefaultClient
         }catch(SQLException throwables){
             throwables.printStackTrace();
         }
+    }
+
+    public boolean validateAccount(String account_id){
+        Connection con = ConnectionManager.getConnection();
+        String query = "SELECT * FROM account WHERE account_id = ?";
+        try {
+            ResultSet rs = null;
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, account_id);
+            rs = preparedStmt.executeQuery();
+            if (!rs.next())
+                return false;
+            else
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

@@ -9,13 +9,13 @@ public class Saving extends Account
 {
     private int saved_money;
 
-    public Saving(int balance,int client_id,int number_of_accounts) {
-        super(balance,client_id,number_of_accounts);
+    public Saving(int client_id,int number_of_accounts) {
+        super(0,client_id,number_of_accounts);
         this.saved_money=0;
         this.updateSaving();
     }
 
-    public Saving(int balance,String account_id){
+    public Saving(int balance, String account_id){
         super(balance,account_id);
         this.saved_money = 0;
         this.updateSaving();
@@ -30,9 +30,15 @@ public class Saving extends Account
         this.updateSaving();
     }
 
-    public void saveMoney(int sum){
-        this.saved_money+=sum;
-        this.updateSaving();
+    public boolean saveMoney(int sum){
+        if(this.getBalance() < sum)
+            return false;
+        else{
+            this.saved_money+=sum;
+            this.setBalance(this.getBalance()-sum);
+            this.updateSaving();
+            return true;
+        }
     }
 
     public void updateSaving(){

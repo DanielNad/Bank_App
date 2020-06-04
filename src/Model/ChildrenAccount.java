@@ -42,11 +42,17 @@ public class ChildrenAccount extends Account
         this.updateChildrenAccount();
     }
 
-    public void askForMoney(Account parent_account,int sum){
-        parent_account.addToBalance(-sum);
-        parent_account.updateAccount();
-        this.addToBalance(sum);
-        this.updateAccount();
+    public boolean askForMoney(Account parent_account,int sum){
+        if(parent_account.getBalance() <= sum){
+            return false;
+        }
+        else{
+            parent_account.addToBalance(-sum);
+            parent_account.updateAccount();
+            this.addToBalance(sum);
+            this.updateAccount();
+        }
+        return true;
     }
 
     public void updateChildrenAccount(){

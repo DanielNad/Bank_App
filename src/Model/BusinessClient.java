@@ -12,7 +12,7 @@ public class BusinessClient extends Client
 
     }
 
-    public boolean askForLoan(int sum, BankManager bankManager, int accountid){
+    public boolean askForLoan(int sum, BankManager bankManager, String accountid){
         if(bankManager.approveLoans(this,sum,accountid))
             return true;
         else

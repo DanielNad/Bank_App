@@ -51,30 +51,29 @@ public class Banker extends Person
     }
 
     public void createNewAccount(int balance, Client client){
-
-        Account account = new Account (balance,client.getClientId(),client.getNumber_of_accounts());
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        Account account = new Account (balance,client.getClientId(),client.getNumber_of_accounts());
         client.updateClient();
         client.getMyAccounts().addAccountToList(account);
     }
 
     public void createNewChildrenAccount(int balance, String children_name,Client client, Account parent_id ){
-        ChildrenAccount children_account = new ChildrenAccount(balance,children_name,client.getClientId(),parent_id.getAccountId(),client.getNumber_of_accounts());
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        ChildrenAccount children_account = new ChildrenAccount(balance,children_name,client.getClientId(),parent_id.getAccountId(),client.getNumber_of_accounts());
         client.updateClient();
         client.getMyAccounts().addAccountToList(children_account);
     }
 
-    public void createNewSaving(int balance,Client client){
-       Saving saving = new Saving(balance,client.getClientId(),client.getNumber_of_accounts());
-       client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
-       client.updateClient();
-       client.getMyAccounts().addAccountToList(saving);
+    public void createNewSaving(Client client){
+        client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        Saving saving = new Saving(client.getClientId(),client.getNumber_of_accounts());
+        client.updateClient();
+        client.getMyAccounts().addAccountToList(saving);
     }
 
-    public void createChildrenSaving(int balance,Client client){
-        ChildrenSaving children_saving = new ChildrenSaving(balance,client.getClientId(),client.getNumber_of_accounts());
+    public void createChildrenSaving(Client client){
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
+        ChildrenSaving children_saving = new ChildrenSaving(client.getClientId(),client.getNumber_of_accounts());
         client.updateClient();
         client.getMyAccounts().addAccountToList(children_saving);
     }
@@ -89,7 +88,7 @@ public class Banker extends Person
         client.updateClient();
     }
 
-    public boolean transferClientToClient(Client client1, int fromAccount, int toAccount, Client client2, int money) {
+    public boolean transferClientToClient(Client client1, String fromAccount, String toAccount, Client client2, int money) {
         Account account1=client1.getMyAccounts().searchAccount(fromAccount);
         Account account2=client2.getMyAccounts().searchAccount(toAccount);
         if(account1.getBalance()<money)
@@ -103,7 +102,7 @@ public class Banker extends Person
         return true;
     }
 
-    public void depositClientMoney(int sum, Client client, int accountid){
+    public void depositClientMoney(int sum, Client client, String accountid){
 
         Account account = client.getMyAccounts().searchAccount(accountid);
         if(account!=null)
@@ -113,7 +112,7 @@ public class Banker extends Person
         }
     }
 
-    public boolean withdrawClientCash(int sum, Client client, int accountid){
+    public boolean withdrawClientCash(int sum, Client client, String accountid){
 
         Account account = client.getMyAccounts().searchAccount(accountid);
         if(account!=null)

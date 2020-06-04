@@ -10,7 +10,6 @@ public class User
     private String username;
     private String password;
     private ResultSet rs = null;
-    Scanner in = new Scanner(System.in);
 
     public User(String username, String password) {
         this.username = username;

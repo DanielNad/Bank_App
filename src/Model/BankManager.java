@@ -22,7 +22,7 @@ public class BankManager extends Banker {
         new Banker(last_name,first_name,address,my_user,banker_id);
     }
 
-    public Boolean approveLoans(BusinessClient businessClient, int sum, int accountid){
+    public Boolean approveLoans(BusinessClient businessClient, int sum, String accountid){
         if(businessClient.getIncome()<sum/5)
             return false;
         else

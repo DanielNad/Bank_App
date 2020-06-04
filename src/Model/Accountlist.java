@@ -18,5 +18,5 @@ public class Accountlist
         this.list.put(account.getAccountId(),account);
     }
 
-    public Account searchAccount(int accountid) { return list.get(accountid); }
+    public Account searchAccount(String accountid) { return list.get(accountid); }
 }

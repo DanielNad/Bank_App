@@ -7,18 +7,18 @@ import java.sql.SQLException;
 
 public class ChildrenSaving extends Saving
 {
-    public ChildrenSaving(int balance,int client_id,int number_of_accounts) {
-        super(balance,client_id,number_of_accounts);
+    public ChildrenSaving(int client_id,int number_of_accounts) {
+        super(client_id,number_of_accounts);
         this.updateChildrenSaving();
     }
 
     public ChildrenSaving(int balance,String account_id){
-        super(balance, account_id);
+        super(balance,account_id);
         this.updateChildrenSaving();
     }
 
-    public void brakeSaving(Account account){
-        account.addToBalance(this.getBalance());
+    public void brakeSaving(ChildrenAccount account){
+        account.addToBalance(this.getSaved_money());
         this.updateAccount();
         this.setSaved_money(0);
         this.updateSaving();
