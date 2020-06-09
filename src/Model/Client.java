@@ -12,7 +12,6 @@ public class Client extends Person implements DefaultClient
     private int clientId;
     private int number_of_accounts;
     private ResultSet rs = null;
-    Scanner in = new Scanner(System.in);
 
     public Client(String last_name, String first_name, String address, int income, String username, String password, int clientId) {
         super(last_name, first_name, address);
@@ -22,6 +21,27 @@ public class Client extends Person implements DefaultClient
         this.clientId=clientId;
         this.number_of_accounts = 0;
         this.insertClient();
+    }
+
+    public Client(int clientId){
+        this.clientId = clientId;
+        Connection con = ConnectionManager.getConnection();
+        try {
+            String query = "SELECT * FROM client where id = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1,clientId);
+            rs = preparedStmt.executeQuery();
+            rs.next();
+            this.setAddress(rs.getString("address"));
+            this.setFirstName(rs.getString("fname"));
+            this.setLastName(rs.getString("lname"));
+            this.income = rs.getInt("income");
+            this.number_of_accounts = rs.getInt("number_of_accounts");
+            my_user = new User(rs.getString("username"),rs.getString("password"));
+            this.retrieveAccounts();
+        } catch (SQLException throwables) {
+            //throwables.printStackTrace();
+        }
     }
 
     public Client(User my_user) {
@@ -93,10 +113,12 @@ public class Client extends Person implements DefaultClient
 
     public void setIncome(int income) {
         this.income = income;
+        this.updateClient();
     }
 
     public void setNumber_of_accounts(int number_of_accounts) {
         this.number_of_accounts = number_of_accounts;
+        this.updateClient();
     }
 
     @Override

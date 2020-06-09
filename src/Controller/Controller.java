@@ -18,6 +18,7 @@ public class Controller {
     private Account account;
     private ViewApp viewApp;
 
+
     public Controller(ViewApp viewApp) {
         this.banker = null;
         this.client = null;
@@ -168,11 +169,12 @@ public class Controller {
     }
 
     public void updateClientMainPanel(){
-        viewApp.getClientHelloLabel().setText("Hello " + client.getFirstName());
+        viewApp.getClientHelloLabel().setText("Hello " + client.getFirstName() + "!");
         viewApp.getBalanceClientNumberJLabel().setText(account.getBalance()+"$");
         viewApp.getAccountIdNumberJLabel().setText(account.getAccountId());
         if(account instanceof ChildrenAccount) {
             viewApp.getAccountIdTypeNameJLabel().setText("Children Account");
+            viewApp.getSeparator_Last().setVisible(false);
             viewApp.getAskForMoneyJButton().setVisible(true);
             viewApp.getSaveMoneyJButton().setVisible(false);
             viewApp.getBreakeSavingJButton().setVisible(false);
@@ -181,6 +183,7 @@ public class Controller {
         }
         else if(account instanceof ChildrenSaving){
             viewApp.getAccountIdTypeNameJLabel().setText("Children Saving");
+            viewApp.getSeparator_Last().setVisible(true);
             viewApp.getAskForMoneyJButton().setVisible(false);
             viewApp.getSaveMoneyJButton().setVisible(true);
             viewApp.getBreakeSavingJButton().setVisible(true);
@@ -190,6 +193,7 @@ public class Controller {
         }
         else if(account instanceof Saving){
             viewApp.getAccountIdTypeNameJLabel().setText("Saving");
+            viewApp.getSeparator_Last().setVisible(true);
             viewApp.getAskForMoneyJButton().setVisible(false);
             viewApp.getSaveMoneyJButton().setVisible(true);
             viewApp.getBreakeSavingJButton().setVisible(false);
@@ -199,6 +203,7 @@ public class Controller {
         }
         else{
             viewApp.getAccountIdTypeNameJLabel().setText("Regular Account");
+            viewApp.getSeparator_Last().setVisible(false);
             viewApp.getAskForMoneyJButton().setVisible(false);
             viewApp.getSaveMoneyJButton().setVisible(false);
             viewApp.getBreakeSavingJButton().setVisible(false);

@@ -41,7 +41,7 @@ public class ViewApp extends JFrame {
     private JLabel clientHelloLabel;
     private JPanel mainClientPanel;
     private JButton depositCashClientButton;
-    private JPanel mainBankerPanel;
+    private JPanel mainBankerJPanel;
     private JLabel switchIconJLabel;
     private JLabel accountTypeClientJLabel;
     private JLabel accountIdTypeNameJLabel;
@@ -52,13 +52,18 @@ public class ViewApp extends JFrame {
     private JButton saveMoneyJButton;
     private JLabel savingClientMainJPanel;
     private JLabel savingClientMainNumberJLabel;
+    private JLabel rightsJLabel;
+    private JLabel rightsJLabelMainClientJPanel;
+    private JSeparator separator_Last;
+    private JPanel rightMainBankerJPanel;
+    private JLabel bankerHelloJLabel;
 
     public ViewApp() {
         setBackground(new Color(255, 255, 255));
         setResizable(false);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(1000, 500);
+        this.setSize(1000, 573);
         this.getContentPane().setBackground(new Color(255, 255, 255));
         this.getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -129,7 +134,7 @@ public class ViewApp extends JFrame {
 
         rightPanel = new JPanel();
         rightPanel.setBackground(new Color(0, 250, 154));
-        rightPanel.setBounds(464, 0, 530, 465);
+        rightPanel.setBounds(464, 0, 530, 538);
         LoginPanel.add(rightPanel);
         rightPanel.setLayout(null);
 
@@ -145,6 +150,12 @@ public class ViewApp extends JFrame {
         Logo.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\pig (1).png"));
         Logo.setBounds(12, 145, 506, 320);
         rightPanel.add(Logo);
+        
+        rightsJLabel = new JLabel("\u00A9 All rights reserved to Piggy Bank");
+        rightsJLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        rightsJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+        rightsJLabel.setBounds(121, 397, 261, 21);
+        LoginPanel.add(rightsJLabel);
 
 
         /////////////////////////////////////////////// Forget Password /////////////////////////////////////////////////
@@ -217,120 +228,141 @@ public class ViewApp extends JFrame {
 
         JPanel rightMainClientJPanel = new JPanel();
         rightMainClientJPanel.setBackground(new Color(0, 250, 154));
-        rightMainClientJPanel.setBounds(731, 0, 263, 465);
+        rightMainClientJPanel.setBounds(731, 0, 263, 538);
         mainClientPanel.add(rightMainClientJPanel);
         rightMainClientJPanel.setLayout(null);
 
         clientHelloLabel = new JLabel("");
-        clientHelloLabel.setForeground(new Color(244, 164, 96));
+        clientHelloLabel.setForeground(new Color(255, 127, 80));
         clientHelloLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 26));
         clientHelloLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        clientHelloLabel.setBounds(0, 13, 275, 46);
+        clientHelloLabel.setBounds(0, 0, 263, 90);
         rightMainClientJPanel.add(clientHelloLabel);
 
-        depositCashClientButton = new JButton("");
-        depositCashClientButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\withdraw.png"));
-        depositCashClientButton.setBorder(BorderFactory.createEmptyBorder());
-        depositCashClientButton.setContentAreaFilled(false);
-        depositCashClientButton.setBounds(166, 106, 97, 73);
+        depositCashClientButton = new JButton("Deposit Money");
+        depositCashClientButton.setBounds(10, 120, 157, 30);
         rightMainClientJPanel.add(depositCashClientButton);
 
-        withdrawCashClientButton = new JButton("");
-        withdrawCashClientButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\saving-money.png"));
-        withdrawCashClientButton.setBorder(BorderFactory.createEmptyBorder());
-        withdrawCashClientButton.setContentAreaFilled(false);
-        withdrawCashClientButton.setBounds(166, 178, 97, 73);
+        withdrawCashClientButton = new JButton("Withdraw Money");
+        withdrawCashClientButton.setBounds(100, 210, 157, 30);
         rightMainClientJPanel.add(withdrawCashClientButton);
 
-        transferClientToClientButton = new JButton("");
-        transferClientToClientButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\save.png"));
-        transferClientToClientButton.setBorder(BorderFactory.createEmptyBorder());
-        transferClientToClientButton.setContentAreaFilled(false);
-        transferClientToClientButton.setBounds(166, 250, 97, 73);
+        transferClientToClientButton = new JButton("Transfer Money");
+        transferClientToClientButton.setBounds(10, 300, 157, 30);
         rightMainClientJPanel.add(transferClientToClientButton);
 
-        newClientAccountButton = new JButton("");
-        newClientAccountButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\pig (4).png"));
-        newClientAccountButton.setBorder(BorderFactory.createEmptyBorder());
-        newClientAccountButton.setContentAreaFilled(false);
-        newClientAccountButton.setBounds(166, 322, 97, 73);
+        newClientAccountButton = new JButton("New Account");
+        newClientAccountButton.setBounds(100, 390, 157, 30);
         rightMainClientJPanel.add(newClientAccountButton);
 
-        newChildrenAccountButton = new JButton("");
-        newChildrenAccountButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\pig (3).png"));
-        newChildrenAccountButton.setBorder(BorderFactory.createEmptyBorder());
-        newChildrenAccountButton.setContentAreaFilled(false);
-        newChildrenAccountButton.setBounds(166, 392, 97, 73);
+        newChildrenAccountButton = new JButton("New Children Account");
+        newChildrenAccountButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        newChildrenAccountButton.setBounds(10, 477, 157, 30);
         rightMainClientJPanel.add(newChildrenAccountButton);
 
-        depositCashClientJLabel = new JLabel("Deposit Money");
+        depositCashClientJLabel = new JLabel("");
+        depositCashClientJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\withdraw.png"));
         depositCashClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 13));
         depositCashClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        depositCashClientJLabel.setBounds(12, 106, 150, 73);
+        depositCashClientJLabel.setBounds(177, 105, 65, 60);
         rightMainClientJPanel.add(depositCashClientJLabel);
 
-        withdrawCashClientJLabel = new JLabel("Withdraw Money");
+        withdrawCashClientJLabel = new JLabel("");
+        withdrawCashClientJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\saving-money.png"));
         withdrawCashClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         withdrawCashClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 13));
-        withdrawCashClientJLabel.setBounds(12, 183, 150, 68);
+        withdrawCashClientJLabel.setBounds(10, 192, 65, 66);
         rightMainClientJPanel.add(withdrawCashClientJLabel);
 
-        transferClientToClientJLabel = new JLabel("Transfer Money");
+        transferClientToClientJLabel = new JLabel("");
+        transferClientToClientJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\save.png"));
         transferClientToClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         transferClientToClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 13));
-        transferClientToClientJLabel.setBounds(12, 250, 150, 73);
+        transferClientToClientJLabel.setBounds(177, 282, 65, 66);
         rightMainClientJPanel.add(transferClientToClientJLabel);
 
-        newAccountJLabel = new JLabel("New Account");
+        newAccountJLabel = new JLabel("");
+        newAccountJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\pig (4).png"));
         newAccountJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         newAccountJLabel.setForeground(new Color(0, 0, 0));
         newAccountJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 13));
-        newAccountJLabel.setBounds(12, 322, 150, 73);
+        newAccountJLabel.setBounds(10, 372, 65, 65);
         rightMainClientJPanel.add(newAccountJLabel);
 
-        newChildrenAccountJLabel = new JLabel("New Children Account");
+        newChildrenAccountJLabel = new JLabel("");
+        newChildrenAccountJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\pig (3).png"));
         newChildrenAccountJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 13));
-        newChildrenAccountJLabel.setBounds(12, 392, 150, 73);
+        newChildrenAccountJLabel.setBounds(177, 462, 65, 66);
         rightMainClientJPanel.add(newChildrenAccountJLabel);
+        
+        JSeparator separator_1 = new JSeparator();
+        separator_1.setForeground(Color.LIGHT_GRAY);
+        separator_1.setBackground(Color.LIGHT_GRAY);
+        separator_1.setBounds(0, 90, 263, 2);
+        rightMainClientJPanel.add(separator_1);
+
+        JSeparator separator_2 = new JSeparator();
+        separator_2.setForeground(Color.LIGHT_GRAY);
+        separator_2.setBackground(Color.LIGHT_GRAY);
+        separator_2.setBounds(0, 180, 263, 2);
+        rightMainClientJPanel.add(separator_2);
+
+        JSeparator separator_3 = new JSeparator();
+        separator_3.setForeground(Color.LIGHT_GRAY);
+        separator_3.setBackground(Color.LIGHT_GRAY);
+        separator_3.setBounds(0, 270, 263, 2);
+        rightMainClientJPanel.add(separator_3);
+
+        JSeparator separator_4 = new JSeparator();
+        separator_4.setForeground(Color.LIGHT_GRAY);
+        separator_4.setBackground(Color.LIGHT_GRAY);
+        separator_4.setBounds(0, 360, 263, 2);
+        rightMainClientJPanel.add(separator_4);
+
+        JSeparator separator_5 = new JSeparator();
+        separator_5.setForeground(Color.LIGHT_GRAY);
+        separator_5.setBackground(Color.LIGHT_GRAY);
+        separator_5.setBounds(0, 450, 263, 2);
+        rightMainClientJPanel.add(separator_5);
 
         balanceClientJLabel = new JLabel("Balance:");
-        balanceClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        balanceClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        balanceClientJLabel.setBounds(12, 203, 165, 56);
+        balanceClientJLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        balanceClientJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        balanceClientJLabel.setBounds(12, 197, 165, 56);
         mainClientPanel.add(balanceClientJLabel);
 
         balanceClientNumberJLabel = new JLabel("");
-        balanceClientNumberJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        balanceClientNumberJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        balanceClientNumberJLabel.setBounds(336, 203, 383, 56);
+        balanceClientNumberJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        balanceClientNumberJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        balanceClientNumberJLabel.setBounds(170, 197, 549, 56);
         mainClientPanel.add(balanceClientNumberJLabel);
 
         accountIdNumberJLabel = new JLabel("");
-        accountIdNumberJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        accountIdNumberJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        accountIdNumberJLabel.setBounds(336, 106, 383, 56);
+        accountIdNumberJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        accountIdNumberJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        accountIdNumberJLabel.setBounds(230, 107, 489, 56);
         mainClientPanel.add(accountIdNumberJLabel);
 
         accountIdClientJLabel = new JLabel("Account ID:");
-        accountIdClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        accountIdClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        accountIdClientJLabel.setBounds(12, 106, 254, 56);
+        accountIdClientJLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        accountIdClientJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        accountIdClientJLabel.setBounds(10, 107, 208, 56);
         mainClientPanel.add(accountIdClientJLabel);
 
         selectAccountComboBox = new JComboBox();
         selectAccountComboBox.setToolTipText("Select Account");
-        selectAccountComboBox.setBounds(517, 49, 202, 31);
+        selectAccountComboBox.setBounds(517, 49, 202, 30);
         mainClientPanel.add(selectAccountComboBox);
 
         backButtonClientMainJPanel = new JButton("");
         backButtonClientMainJPanel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\return.png"));
         backButtonClientMainJPanel.setContentAreaFilled(false);
         backButtonClientMainJPanel.setBorder(BorderFactory.createEmptyBorder());
-        backButtonClientMainJPanel.setBounds(0, 24, 85, 65);
+        backButtonClientMainJPanel.setBounds(0, 0, 85, 65);
         mainClientPanel.add(backButtonClientMainJPanel);
 
         JLabel switchAccountJLabel = new JLabel("Switch Accounts");
-        switchAccountJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 19));
+        switchAccountJLabel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 19));
         switchAccountJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         switchAccountJLabel.setBounds(557, 9, 162, 27);
         mainClientPanel.add(switchAccountJLabel);
@@ -342,15 +374,15 @@ public class ViewApp extends JFrame {
         mainClientPanel.add(switchIconJLabel);
 
         accountTypeClientJLabel = new JLabel("Account Type:");
-        accountTypeClientJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        accountTypeClientJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        accountTypeClientJLabel.setBounds(12, 304, 295, 56);
+        accountTypeClientJLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        accountTypeClientJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        accountTypeClientJLabel.setBounds(12, 287, 295, 56);
         mainClientPanel.add(accountTypeClientJLabel);
 
         accountIdTypeNameJLabel = new JLabel("");
-        accountIdTypeNameJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        accountIdTypeNameJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        accountIdTypeNameJLabel.setBounds(336, 304, 383, 56);
+        accountIdTypeNameJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        accountIdTypeNameJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        accountIdTypeNameJLabel.setBounds(264, 287, 455, 56);
         mainClientPanel.add(accountIdTypeNameJLabel);
         
         switchAccountJButton = new JButton("");
@@ -361,37 +393,84 @@ public class ViewApp extends JFrame {
         mainClientPanel.add(switchAccountJButton);
         
         askForMoneyJButton = new JButton("Ask For Money");
-        askForMoneyJButton.setBounds(355, 44, 117, 36);
+        askForMoneyJButton.setBounds(355, 49, 117, 30);
         mainClientPanel.add(askForMoneyJButton);
         
         breakeSavingJButton = new JButton("Break Saving");
-        breakeSavingJButton.setBounds(226, 44, 117, 36);
+        breakeSavingJButton.setBounds(226, 49, 117, 30);
         mainClientPanel.add(breakeSavingJButton);
         
         saveMoneyJButton = new JButton("Save Money");
-        saveMoneyJButton.setBounds(97, 44, 117, 36);
+        saveMoneyJButton.setBounds(97, 49, 117, 30);
         mainClientPanel.add(saveMoneyJButton);
         
         savingClientMainJPanel = new JLabel("Saving:");
         savingClientMainJPanel.setVisible(false);
-        savingClientMainJPanel.setHorizontalAlignment(SwingConstants.CENTER);
-        savingClientMainJPanel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        savingClientMainJPanel.setBounds(12, 396, 136, 56);
+        savingClientMainJPanel.setHorizontalAlignment(SwingConstants.LEFT);
+        savingClientMainJPanel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        savingClientMainJPanel.setBounds(12, 377, 136, 56);
         mainClientPanel.add(savingClientMainJPanel);
         
         savingClientMainNumberJLabel = new JLabel("");
         savingClientMainNumberJLabel.setVisible(false);
-        savingClientMainNumberJLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        savingClientMainNumberJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 40));
-        savingClientMainNumberJLabel.setBounds(336, 396, 383, 56);
+        savingClientMainNumberJLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        savingClientMainNumberJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 39));
+        savingClientMainNumberJLabel.setBounds(160, 377, 559, 56);
         mainClientPanel.add(savingClientMainNumberJLabel);
 
+        JSeparator separator_7 = new JSeparator();
+        separator_7.setForeground(Color.LIGHT_GRAY);
+        separator_7.setBackground(Color.LIGHT_GRAY);
+        separator_7.setBounds(0, 180, 731, 2);
+        mainClientPanel.add(separator_7);
+
+        JSeparator separator_8 = new JSeparator();
+        separator_8.setForeground(Color.LIGHT_GRAY);
+        separator_8.setBackground(Color.LIGHT_GRAY);
+        separator_8.setBounds(0, 270, 731, 5);
+        mainClientPanel.add(separator_8);
+
+        JSeparator separator_6 = new JSeparator();
+        separator_6.setForeground(Color.LIGHT_GRAY);
+        separator_6.setBackground(Color.LIGHT_GRAY);
+        separator_6.setBounds(0, 90, 731, 5);
+        mainClientPanel.add(separator_6);
+
+        JSeparator separator_9 = new JSeparator();
+        separator_9.setForeground(Color.LIGHT_GRAY);
+        separator_9.setBackground(Color.LIGHT_GRAY);
+        separator_9.setBounds(0, 360, 731, 5);
+        mainClientPanel.add(separator_9);
+        
+        rightsJLabelMainClientJPanel = new JLabel("\u00A9 All rights reserved to Piggy Bank");
+        rightsJLabelMainClientJPanel.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 15));
+        rightsJLabelMainClientJPanel.setBounds(243, 504, 261, 21);
+        mainClientPanel.add(rightsJLabelMainClientJPanel);
+        
+        separator_Last = new JSeparator();
+        separator_Last.setForeground(Color.LIGHT_GRAY);
+        separator_Last.setBackground(Color.LIGHT_GRAY);
+        separator_Last.setBounds(0, 450, 731, 2);
+        mainClientPanel.add(separator_Last);
 
         /////////////////////////////////////////////// Main Banker Panel /////////////////////////////////////////////////
 
 
-        mainBankerPanel = new JPanel();
-        getContentPane().add(mainBankerPanel, "name_199232667698700");
+        mainBankerJPanel = new JPanel();
+        getContentPane().add(mainBankerJPanel, "name_199232667698700");
+        mainBankerJPanel.setLayout(null);
+        
+        rightMainBankerJPanel = new JPanel();
+        rightMainBankerJPanel.setBackground(new Color(0, 250, 154));
+        rightMainBankerJPanel.setBounds(468, 0, 526, 538);
+        mainBankerJPanel.add(rightMainBankerJPanel);
+        rightMainBankerJPanel.setLayout(null);
+        
+        bankerHelloJLabel = new JLabel("");
+        bankerHelloJLabel.setBounds(0, 0, 526, 90);
+        bankerHelloJLabel.setForeground(new Color(255, 127, 80));
+        bankerHelloJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 26));
+        rightMainBankerJPanel.add(bankerHelloJLabel);
         InvalidUsername.setVisible(false);
     }
 
@@ -600,11 +679,11 @@ public class ViewApp extends JFrame {
     }
 
     public JPanel getMainBankerPanel() {
-        return mainBankerPanel;
+        return mainBankerJPanel;
     }
 
     public void setMainBankerPanel(JPanel mainBankerPanel) {
-        this.mainBankerPanel = mainBankerPanel;
+        this.mainBankerJPanel = mainBankerPanel;
     }
 
     public JButton getBackButtonClientMainJPanel() {
@@ -669,5 +748,13 @@ public class ViewApp extends JFrame {
 
     public void setSavingClientMainJPanel(JLabel savingClientMainJPanel) {
         this.savingClientMainJPanel = savingClientMainJPanel;
+    }
+
+    public JSeparator getSeparator_Last() {
+        return separator_Last;
+    }
+
+    public void setSeparator_Last(JSeparator separator_Last) {
+        this.separator_Last = separator_Last;
     }
 }

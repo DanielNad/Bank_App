@@ -12,7 +12,6 @@ public class Account
    private String account_id;
 
    public Account(int balance,int client_id,int number_of_accounts) {
-      number_of_accounts++;
       this.balance = balance;
       this.account_id = client_id + "-" + number_of_accounts ;
       this.insertAccount(client_id);
