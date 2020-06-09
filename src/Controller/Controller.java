@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 //TODO: Error handling - transferring to an invalid client id etc.
 //TODO: Design patterns
 //TODO: Constructor in client with only id
+//TODO: Daniel - Check
 
 public class Controller {
     private Banker banker;
