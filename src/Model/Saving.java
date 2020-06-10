@@ -12,13 +12,11 @@ public class Saving extends Account
     public Saving(int client_id,int number_of_accounts) {
         super(0,client_id,number_of_accounts);
         this.saved_money=0;
-        this.updateSaving();
     }
 
     public Saving(int balance, String account_id){
         super(balance,account_id);
         this.saved_money = 0;
-        this.updateSaving();
     }
 
     public int getSaved_money() {
@@ -27,7 +25,6 @@ public class Saving extends Account
 
     public void setSaved_money(int saved_money) {
         this.saved_money = saved_money;
-        this.updateSaving();
     }
 
     public boolean saveMoney(int sum){
@@ -36,11 +33,10 @@ public class Saving extends Account
         else{
             this.saved_money+=sum;
             this.setBalance(this.getBalance()-sum);
-            this.updateSaving();
             return true;
         }
     }
-
+    /*
     public void updateSaving(){
     Connection con = ConnectionManager.getConnection();
     try {
@@ -53,5 +49,6 @@ public class Saving extends Account
     } catch (SQLException throwables) {
         throwables.printStackTrace();
     }
-}
+ }
+     */
 }

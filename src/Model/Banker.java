@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*
 public class Banker extends Person
 {
     private User my_user;
@@ -189,3 +190,4 @@ public class Banker extends Person
     }
 
 }
+ */

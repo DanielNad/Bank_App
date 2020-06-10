@@ -9,16 +9,13 @@ import java.awt.event.KeyEvent;
 //TODO: Create tables if there are no existing ones already
 //TODO: Error handling - transferring to an invalid client id etc.
 //TODO: Design patterns
-//TODO: Constructor in client with only id
-//TODO: Daniel - Check
-
+/*
 public class Controller {
     private Banker banker;
     private Client client;
     private User user;
     private Account account;
     private ViewApp viewApp;
-
 
     public Controller(ViewApp viewApp) {
         this.banker = null;
@@ -856,5 +853,5 @@ public class Controller {
         this.updateBankerPanel();
 
     }
-
 }
+*/

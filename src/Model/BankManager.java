@@ -5,10 +5,9 @@ import Database.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+/*
 public class BankManager extends Banker {
     //TODO: improve approve loans
-
     public BankManager(String last_name, String first_name, String address, User my_user, int banker_id) {
         super(last_name, first_name, address, my_user, banker_id);
         this.updateBankManager();
@@ -55,3 +54,5 @@ public class BankManager extends Banker {
                 '}';
     }
 }
+
+ */

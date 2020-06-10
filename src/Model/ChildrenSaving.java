@@ -4,26 +4,21 @@ import Database.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 public class ChildrenSaving extends Saving
 {
     public ChildrenSaving(int client_id,int number_of_accounts) {
         super(client_id,number_of_accounts);
-        this.updateChildrenSaving();
     }
 
     public ChildrenSaving(int balance,String account_id){
         super(balance,account_id);
-        this.updateChildrenSaving();
     }
 
     public void brakeSaving(ChildrenAccount account){
         account.addToBalance(this.getSaved_money());
-        this.updateAccount();
         this.setSaved_money(0);
-        this.updateSaving();
     }
-
+    /*
     public void updateChildrenSaving(){
         Connection con = ConnectionManager.getConnection();
         try {
@@ -37,4 +32,6 @@ public class ChildrenSaving extends Saving
             throwables.printStackTrace();
         }
     }
+     */
 }
+

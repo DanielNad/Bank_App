@@ -1,16 +1,23 @@
 package Controller;
-
+import Database.*;
 import Model.*;
-import View.ViewApp;
+
+import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
-        ViewApp panel = new ViewApp();
-        //Client sun = new Client("Shavit","Sun","Ramat Gan",100000,"sun","sunsun123",206920647);
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        ClientRepository clientRepository = new ClientRepository();
+
+        Client Daniel = new Client("Nadav","Daniel","Bat-Yam",0,"daniel","1",205635170);
+
+        clientRepository.insertClient(Daniel);
+
         //BankManager admin = new BankManager("admin","admin","admin",new User("admin","admin"),999999999);
         //Saving sav = new Saving(sun.getClientId(),sun.getNumber_of_accounts());
         //ChildrenSaving savch = new ChildrenSaving(sun.getClientId(),sun.getNumber_of_accounts());
-        Controller app = new Controller(panel);
-        panel.setVisible(true);
+
+        //ViewApp panel = new ViewApp();
+        //Controller app = new Controller(panel);
+        //panel.setVisible(true);
     }
 }

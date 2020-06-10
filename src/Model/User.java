@@ -31,7 +31,7 @@ public class User
     public void changePassword(String password){
         this.password=password;
     }
-
+/*
     public boolean validateClientUsernameAndPassword(){
         Connection con = ConnectionManager.getConnection();
         String query = "SELECT * FROM client WHERE username = ? AND password = ?";
@@ -149,6 +149,8 @@ public class User
         }
     }
 
+
+ */
     @Override
     public String toString() {
         return "Model.User{" +
