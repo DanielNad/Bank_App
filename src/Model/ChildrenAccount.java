@@ -1,10 +1,5 @@
 package Model;
 
-import Database.ConnectionManager;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 public class ChildrenAccount extends Account
 {
     private String children_name;
@@ -39,7 +34,7 @@ public class ChildrenAccount extends Account
     }
 
     public boolean askForMoney(Account parent_account,int sum){
-        if(parent_account.getBalance() <= sum){
+        if(parent_account.getBalance() < sum){
             return false;
         }
         else{
@@ -48,22 +43,7 @@ public class ChildrenAccount extends Account
         }
         return true;
     }
-/*
-    public void updateChildrenAccount(){
-        Connection con = ConnectionManager.getConnection();
-        try {
-            String query = "UPDATE account SET children_name = ?, parent_account_id = ? WHERE account_id = ?;";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1,this.children_name);
-            preparedStmt.setString(2,this.parent_account_id);
-            preparedStmt.setString(3,this.getAccountId());
-            preparedStmt.executeUpdate();
-            preparedStmt.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-*/
+
     @Override
     public String toString() {
         return "ChildrenAccount{" +

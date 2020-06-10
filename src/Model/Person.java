@@ -13,9 +13,6 @@ public abstract class Person {
         this.address = address;
     }
 
-    public Person() {
-    }
-
     public String getLastName() {
         return last_name;
     }

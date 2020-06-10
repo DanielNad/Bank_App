@@ -91,6 +91,7 @@ public class ViewApp extends JFrame {
     private JComboBox switchAccountMainBankerJComboBox;
     private JButton selectAccountsMainBankerJButton;
     private  JLabel switchAccountsMainBankerJLabel;
+    private JLabel switchAccountsIconMainBankerJLabel;
 
     public ViewApp() {
         setBackground(new Color(255, 255, 255));
@@ -472,7 +473,8 @@ public class ViewApp extends JFrame {
         rightMainBankerJPanel.setLayout(null);
         
         bankerHelloJLabel = new JLabel("");
-        bankerHelloJLabel.setBounds(0, 0, 235, 90);
+        bankerHelloJLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        bankerHelloJLabel.setBounds(0, 0, 220, 90);
         bankerHelloJLabel.setForeground(new Color(255, 127, 80));
         bankerHelloJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 26));
         rightMainBankerJPanel.add(bankerHelloJLabel);
@@ -615,45 +617,46 @@ public class ViewApp extends JFrame {
         
         clientIdMainBankerTextJLabel = new JLabel("");
         clientIdMainBankerTextJLabel.setVisible(false);
-        clientIdMainBankerTextJLabel.setBounds(109, 123, 56, 16);
+        clientIdMainBankerTextJLabel.setBounds(109, 123, 628, 16);
         mainBankerJPanel.add(clientIdMainBankerTextJLabel);
         
         clientNameMainBankerTextJLabel = new JLabel("");
         clientNameMainBankerTextJLabel.setVisible(false);
-        clientNameMainBankerTextJLabel.setBounds(109, 152, 56, 16);
+        clientNameMainBankerTextJLabel.setBounds(109, 152, 628, 16);
         mainBankerJPanel.add(clientNameMainBankerTextJLabel);
         
         clientAddressMainBankerTextJLabel = new JLabel("");
         clientAddressMainBankerTextJLabel.setVisible(false);
-        clientAddressMainBankerTextJLabel.setBounds(109, 181, 56, 16);
+        clientAddressMainBankerTextJLabel.setBounds(109, 181, 628, 16);
         mainBankerJPanel.add(clientAddressMainBankerTextJLabel);
         
         clientIncomeMainBankerTextJLabel = new JLabel("");
         clientIncomeMainBankerTextJLabel.setVisible(false);
-        clientIncomeMainBankerTextJLabel.setBounds(109, 210, 56, 16);
+        clientIncomeMainBankerTextJLabel.setBounds(109, 210, 628, 16);
         mainBankerJPanel.add(clientIncomeMainBankerTextJLabel);
         
         accountIdMainBankerTextJLabel = new JLabel("");
         accountIdMainBankerTextJLabel.setVisible(false);
-        accountIdMainBankerTextJLabel.setBounds(190, 270, 228, 16);
+        accountIdMainBankerTextJLabel.setBounds(190, 270, 547, 16);
         mainBankerJPanel.add(accountIdMainBankerTextJLabel);
         
         accountBalanceMainBankerTextJLabel = new JLabel("");
         accountBalanceMainBankerTextJLabel.setVisible(false);
-        accountBalanceMainBankerTextJLabel.setBounds(109, 299, 56, 16);
+        accountBalanceMainBankerTextJLabel.setBounds(109, 299, 628, 16);
         mainBankerJPanel.add(accountBalanceMainBankerTextJLabel);
         
         accountTypeMainBankerTextJLabel = new JLabel("");
         accountTypeMainBankerTextJLabel.setVisible(false);
-        accountTypeMainBankerTextJLabel.setBounds(109, 341, 56, 16);
+        accountTypeMainBankerTextJLabel.setBounds(109, 341, 628, 16);
         mainBankerJPanel.add(accountTypeMainBankerTextJLabel);
         
         accountSavedMoneyMainBankerTextJLabel = new JLabel("");
         accountSavedMoneyMainBankerTextJLabel.setVisible(false);
-        accountSavedMoneyMainBankerTextJLabel.setBounds(109, 370, 56, 16);
+        accountSavedMoneyMainBankerTextJLabel.setBounds(109, 370, 639, 16);
         mainBankerJPanel.add(accountSavedMoneyMainBankerTextJLabel);
         
-        JLabel switchAccountsIconMainBankerJLabel = new JLabel("");
+        switchAccountsIconMainBankerJLabel = new JLabel("");
+        switchAccountsIconMainBankerJLabel.setVisible(false);
         switchAccountsIconMainBankerJLabel.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\switch.jpeg"));
         switchAccountsIconMainBankerJLabel.setBounds(559, 17, 24, 24);
         mainBankerJPanel.add(switchAccountsIconMainBankerJLabel);
@@ -1097,5 +1100,9 @@ public class ViewApp extends JFrame {
 
     public JLabel getSwitchAccountsMainBankerJLabel() {
         return switchAccountsMainBankerJLabel;
+    }
+
+    public JLabel getSwitchAccountsIconMainBankerJLabel() {
+        return switchAccountsIconMainBankerJLabel;
     }
 }

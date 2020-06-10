@@ -30,9 +30,17 @@ public class ConnectionManager {
         return con;
     }
 
-    public ResultSet executeQuery(String query) throws SQLException, ClassNotFoundException {
-        return getConnection().createStatement().executeQuery(query);
+    public ResultSet executeQuery(String query)  {
+        try {
+            return getConnection().createStatement().executeQuery(query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
     public boolean executeUpdate(String query){
         try {
             getConnection().createStatement().executeUpdate(query);

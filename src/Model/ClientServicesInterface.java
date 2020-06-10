@@ -4,13 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface ClientServicesInterface {
-    public Client createClient (ResultSet resultSet) throws SQLException, ClassNotFoundException;
-    public ResultSet searchClientId(int clientId) throws SQLException, ClassNotFoundException;
-    public ResultSet searchClientUser(User user) throws SQLException, ClassNotFoundException;
-    public void retrieveAccounts(Client client) throws SQLException, ClassNotFoundException;
-    public boolean validateClientId(int clientId) throws SQLException, ClassNotFoundException;
-    public void insertClient(Client client) throws SQLException, ClassNotFoundException;
+    public Client createClient (ResultSet resultSet);
+    public ResultSet searchClientId(int clientId) ;
+    public ResultSet searchClientUser(User user) ;
+    public void retrieveAccounts(Client client) ;
+    public boolean validateClientId(int clientId) ;
+    public boolean validateClientUser(User user);
+    public boolean validateClientUsername(String username);
+    public void setNewClientPassword(String username,String newPassword);
+    public void insertClient(Client client);
     public void updateClient(Client client);
     public void deleteClient(Client client);
-    public void dropClientTable();
+    public void deleteAllClients();
 }

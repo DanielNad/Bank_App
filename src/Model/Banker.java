@@ -1,42 +1,14 @@
 package Model;
 
-import Database.ConnectionManager;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-/*
 public class Banker extends Person
 {
     private User my_user;
     private int banker_id;
-    private ResultSet rs = null;
 
     public Banker(String last_name, String first_name, String address, User my_user, int banker_id) {
         super(last_name, first_name, address);
         this.my_user=my_user;
         this.banker_id=banker_id;
-        this.insertBanker();
-    }
-
-    public Banker(User my_user) {
-        this.my_user = my_user;
-        Connection con = ConnectionManager.getConnection();
-        try {
-            String query = "SELECT * FROM banker where username = ? AND password = ?";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(2,this.getMyUser().getPassword());
-            preparedStmt.setString(1,this.getMyUser().getUsername());
-            rs = preparedStmt.executeQuery();
-            rs.next();
-            this.banker_id=rs.getInt("banker_id");
-            this.setAddress(rs.getNString("address"));
-            this.setFirstName(rs.getNString("fname"));
-            this.setLastName(rs.getNString("lname"));
-        } catch (SQLException throwables) {
-            //throwables.printStackTrace();
-        }
     }
 
     public User getMyUser() { return my_user; }
@@ -45,138 +17,75 @@ public class Banker extends Person
         return banker_id;
     }
 
-    public void createNewClient(String first_name, String last_name, String address, int income, String username, String password, int id){
-
+    public Client createNewClient(String first_name, String last_name, String address, int income, String username, String password, int id){
        Client client = new Client(last_name,first_name,address,income,username,password,id);
-       client.insertClient();
+       return client;
     }
 
-    public void createNewAccount(int balance, Client client){
+    public Account createNewAccount(int balance, Client client){
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
         Account account = new Account (balance,client.getClientId(),client.getNumber_of_accounts());
-        client.updateClient();
         client.getMyAccounts().addAccountToList(account);
+        return account;
     }
 
-    public void createNewChildrenAccount(int balance, String children_name,Client client, Account parent_id ){
+    public ChildrenAccount createNewChildrenAccount(int balance, String children_name,Client client, Account parent_id ){
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
         ChildrenAccount children_account = new ChildrenAccount(balance,children_name,client.getClientId(),parent_id.getAccountId(),client.getNumber_of_accounts());
-        client.updateClient();
         client.getMyAccounts().addAccountToList(children_account);
+        return children_account;
     }
 
-    public void createNewSaving(Client client){
+    public Saving createNewSaving(Client client){
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
         Saving saving = new Saving(client.getClientId(),client.getNumber_of_accounts());
-        client.updateClient();
         client.getMyAccounts().addAccountToList(saving);
+        return saving;
     }
 
-    public void createChildrenSaving(Client client){
+    public ChildrenSaving createChildrenSaving(Client client){
         client.setNumber_of_accounts(client.getNumber_of_accounts()+1);
         ChildrenSaving children_saving = new ChildrenSaving(client.getClientId(),client.getNumber_of_accounts());
-        client.updateClient();
         client.getMyAccounts().addAccountToList(children_saving);
+        return children_saving;
     }
 
     public void editClientInfo(Client client, String first_name, String last_name, String address, int income, String password){
-
         client.setFirstName(first_name);
         client.setLastName(last_name);
         client.setAddress(address);
         client.setIncome(income);
         client.getMyUser().changePassword(password);
-        client.updateClient();
     }
 
-    public boolean transferClientToClient(Client client1, String fromAccount, String toAccount, Client client2, int money) {
-        Account account1=client1.getMyAccounts().searchAccount(fromAccount);
-        Account account2=client2.getMyAccounts().searchAccount(toAccount);
-        if(account1.getBalance()<money)
+    public boolean transferClientToClient(Account fromAccount, Account toAccount,int money) {
+        if(fromAccount.getBalance()<money)
             return false;
         else{
-            account1.addToBalance(-money);
-            account2.addToBalance(money);
+            fromAccount.addToBalance(-money);
+            toAccount.addToBalance(money);
         }
-        account1.updateAccount();
-        account2.updateAccount();
         return true;
     }
 
-    public void depositClientMoney(int sum, Client client, String accountid){
-
-        Account account = client.getMyAccounts().searchAccount(accountid);
+    public void depositClientMoney(Client client, Account account,int sum){
         if(account!=null)
         {
             account.addToBalance(sum);
-            account.updateAccount();
         }
     }
 
-    public boolean withdrawClientCash(int sum, Client client, String accountid){
-
-        Account account = client.getMyAccounts().searchAccount(accountid);
+    public boolean withdrawClientCash(Client client, Account account,int sum){
         if(account!=null)
         {
             if(account.getBalance()>=sum) {
-                account.addToBalance(sum);
-                account.updateAccount();
+                account.addToBalance(-sum);
                 return true;
             }
             else
                 return false;
         }
         return false;
-    }
-
-    public void insertBanker(){
-        Connection con = ConnectionManager.getConnection();
-        String query = "INSERT INTO banker (banker_id,password,address,fname,lname,username) VALUES (?,?,?,?,?,?)";
-        try {
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1,this.getBankerId());
-            preparedStmt.setString(2,this.getMyUser().getPassword());
-            preparedStmt.setString(3,this.getAddress());
-            preparedStmt.setString(4,this.getFirstName());
-            preparedStmt.setString(5,this.getLastName());
-            preparedStmt.setString(6,this.getMyUser().getUsername());
-            preparedStmt.executeUpdate();
-            preparedStmt.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void updateBanker() {
-        Connection con = ConnectionManager.getConnection();
-        try {
-            String query = "UPDATE banker SET banker_id = ?, password = ?, address = ?,fname = ?,lname = ?,username = ? WHERE banker_id = ?;";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1,this.getBankerId());
-            preparedStmt.setString(2,this.getMyUser().getPassword());
-            preparedStmt.setString(3,this.getAddress());
-            preparedStmt.setString(4,this.getFirstName());
-            preparedStmt.setString(5,this.getLastName());
-            preparedStmt.setString(6,this.getMyUser().getUsername());
-            preparedStmt.setInt(7,this.getBankerId());
-            preparedStmt.executeUpdate();
-            preparedStmt.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void deleteBanker(){
-        Connection con = ConnectionManager.getConnection();
-        try{
-            String query = "DELETE FROM banker Where banker_id = ?";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1,this.banker_id);
-            preparedStmt.executeUpdate();
-        }catch(SQLException throwables){
-            throwables.printStackTrace();
-        }
     }
 
     @Override
@@ -188,6 +97,4 @@ public class Banker extends Person
                 " last name="+this.getLastName()+
                 '}';
     }
-
 }
- */
