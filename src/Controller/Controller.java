@@ -10,9 +10,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
-//TODO: Create tables if there are no existing ones already
-//TODO: Error handling - transferring to an invalid client id etc.
-//TODO: Design patterns
+//TODO: Design Pattern
+//TODO: JUnit test.
+//TODO: Video Clip.
+//TODO: Readme - Install, Links, Guides, Create tables if there are no existing ones already, Create admin.
+//TODO: Warning Clean-UP.
+//TODO: Code Clean-UP (Unused Lines).
 
 public class Controller {
     private Banker banker;
@@ -1042,13 +1045,13 @@ public class Controller {
 
             passwordJT.setBounds(110,170,300,25);
 
-            button.setBounds(210,200,80,30);
+            button.setBounds(210,210,80,30);
             button.setText("OK");
 
 
             dialog.setLocationByPlatform(true);
             dialog.setLocationRelativeTo(viewApp.getMainClientPanel());
-            dialog.setSize(500,400);
+            dialog.setSize(500,310);
             dialog.setVisible(true);
 
             validateTextField(incomeJT);
@@ -1274,10 +1277,10 @@ public class Controller {
 
             addressJT.setBounds(110,170,300,25);
 
-            usernameJL.setBounds(20,200,80,25);
+            usernameJL.setBounds(20,210,80,25);
             usernameJL.setHorizontalTextPosition(SwingConstants.CENTER);
 
-            usernameJT.setBounds(110,200,300,25);
+            usernameJT.setBounds(110,210,300,25);
 
             passwordJL.setBounds(20,250,80,25);
             passwordJL.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -1287,13 +1290,13 @@ public class Controller {
             label_error.setBounds(150,250,300,25);
             label_error.setHorizontalTextPosition(SwingConstants.CENTER);
 
-            button.setBounds(210,280,80,30);
+            button.setBounds(210,290,80,30);
             button.setText("OK");
 
 
             dialog.setLocationByPlatform(true);
             dialog.setLocationRelativeTo(viewApp.getMainClientPanel());
-            dialog.setSize(500,475);
+            dialog.setSize(500,380);
             dialog.setVisible(true);
 
             validateTextField(bankerIdJT);
@@ -1533,7 +1536,7 @@ public class Controller {
                 viewApp.getAccountSavedMoneyMainBankerJLabel().setVisible(true);
                 viewApp.getAccountSavedMoneyMainBankerTextJLabel().setVisible(true);
                 viewApp.getSavingClientMainNumberJLabel().setText(((Saving) account).getSaved_money()+"$");
-                viewApp.getAccountSavedMoneyMainBankerTextJLabel().setText(((ChildrenSaving) account).getSaved_money()+"$$");
+                viewApp.getAccountSavedMoneyMainBankerTextJLabel().setText(((Saving) account).getSaved_money()+"$$");
             }
             else{
                 viewApp.getAccountTypeMainBankerTextJLabel().setText("Regular Account");

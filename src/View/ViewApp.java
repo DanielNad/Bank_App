@@ -92,6 +92,7 @@ public class ViewApp extends JFrame {
     private JButton selectAccountsMainBankerJButton;
     private  JLabel switchAccountsMainBankerJLabel;
     private JLabel switchAccountsIconMainBankerJLabel;
+    private JLabel rightsForgetPasswordJLabel_1;
 
     public ViewApp() {
         setBackground(new Color(255, 255, 255));
@@ -252,6 +253,12 @@ public class ViewApp extends JFrame {
         backButtonForgetPassword.setContentAreaFilled(false);
         backButtonForgetPassword.setBounds(12, 13, 114, 71);
         ForgetPasswordPanel.add(backButtonForgetPassword);
+        
+        JLabel rightsForgetPasswordJLabel = new JLabel("\u00A9 All rights reserved to Piggy Bank");
+        rightsForgetPasswordJLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        rightsForgetPasswordJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+        rightsForgetPasswordJLabel.setBounds(354, 327, 261, 21);
+        ForgetPasswordPanel.add(rightsForgetPasswordJLabel);
 
 
         /////////////////////////////////////////////// Main Client Panel /////////////////////////////////////////////////
@@ -480,56 +487,56 @@ public class ViewApp extends JFrame {
         rightMainBankerJPanel.add(bankerHelloJLabel);
 
         selectClientMainBankerJButton = new JButton("Select Client");
-        selectClientMainBankerJButton.setBounds(12, 120, 200, 25);
+        selectClientMainBankerJButton.setBounds(12, 162, 200, 25);
         rightMainBankerJPanel.add(selectClientMainBankerJButton);
         
         createNewClientMainBankerJButton = new JButton("Create New Client");
-        createNewClientMainBankerJButton.setBounds(12, 158, 200, 25);
+        createNewClientMainBankerJButton.setBounds(12, 200, 200, 25);
         rightMainBankerJPanel.add(createNewClientMainBankerJButton);
         
         createNewAccountMainBankerJButton = new JButton("Create New Account");
         createNewAccountMainBankerJButton.setVisible(false);
-        createNewAccountMainBankerJButton.setBounds(12, 196, 200, 25);
+        createNewAccountMainBankerJButton.setBounds(12, 238, 200, 25);
         rightMainBankerJPanel.add(createNewAccountMainBankerJButton);
         
         createNewChildrenAccountMainBankerJButton = new JButton("Create New Children Account");
         createNewChildrenAccountMainBankerJButton.setVisible(false);
-        createNewChildrenAccountMainBankerJButton.setBounds(12, 234, 200, 25);
+        createNewChildrenAccountMainBankerJButton.setBounds(12, 276, 200, 25);
         rightMainBankerJPanel.add(createNewChildrenAccountMainBankerJButton);
         
         createNewSavingMainBankerJButton = new JButton("Create New Saving");
         createNewSavingMainBankerJButton.setVisible(false);
-        createNewSavingMainBankerJButton.setBounds(12, 272, 200, 25);
+        createNewSavingMainBankerJButton.setBounds(12, 312, 200, 25);
         rightMainBankerJPanel.add(createNewSavingMainBankerJButton);
         
         createNewChildrenSavingMainBankerJButton = new JButton("Create New Children Saving");
         createNewChildrenSavingMainBankerJButton.setVisible(false);
-        createNewChildrenSavingMainBankerJButton.setBounds(12, 310, 200, 25);
+        createNewChildrenSavingMainBankerJButton.setBounds(12, 348, 200, 25);
         rightMainBankerJPanel.add(createNewChildrenSavingMainBankerJButton);
         
         editClientInfoMainBankerJButton = new JButton("Edit Client Info");
         editClientInfoMainBankerJButton.setVisible(false);
-        editClientInfoMainBankerJButton.setBounds(12, 348, 200, 25);
+        editClientInfoMainBankerJButton.setBounds(12, 386, 200, 25);
         rightMainBankerJPanel.add(editClientInfoMainBankerJButton);
         
         transferClientToClientMainBankerJButton = new JButton("Transfer");
         transferClientToClientMainBankerJButton.setVisible(false);
-        transferClientToClientMainBankerJButton.setBounds(12, 386, 200, 25);
+        transferClientToClientMainBankerJButton.setBounds(12, 424, 200, 25);
         rightMainBankerJPanel.add(transferClientToClientMainBankerJButton);
         
         depositMoneyMainBankerJButton = new JButton("Deposit Money");
         depositMoneyMainBankerJButton.setVisible(false);
-        depositMoneyMainBankerJButton.setBounds(12, 424, 200, 25);
+        depositMoneyMainBankerJButton.setBounds(12, 462, 200, 25);
         rightMainBankerJPanel.add(depositMoneyMainBankerJButton);
         
         withdrawMoneyMainBankerJButton = new JButton("Withdraw Money");
         withdrawMoneyMainBankerJButton.setVisible(false);
-        withdrawMoneyMainBankerJButton.setBounds(12, 462, 200, 25);
+        withdrawMoneyMainBankerJButton.setBounds(12, 500, 200, 25);
         rightMainBankerJPanel.add(withdrawMoneyMainBankerJButton);
         
         createNewBankerMainBankerJButton = new JButton("Create New Banker");
         createNewBankerMainBankerJButton.setVisible(false);
-        createNewBankerMainBankerJButton.setBounds(12, 500, 200, 25);
+        createNewBankerMainBankerJButton.setBounds(12, 124, 200, 25);
         rightMainBankerJPanel.add(createNewBankerMainBankerJButton);
         
         switchAccountsMainBankerJLabel = new JLabel("Switch Accounts");
@@ -563,96 +570,96 @@ public class ViewApp extends JFrame {
         clientIdMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         clientIdMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         clientIdMainBankerJLabel.setVisible(false);
-        clientIdMainBankerJLabel.setBounds(12, 123, 56, 16);
+        clientIdMainBankerJLabel.setBounds(12, 124, 56, 25);
         mainBankerJPanel.add(clientIdMainBankerJLabel);
         
         clientNameMainBankerJLabel = new JLabel("Name:");
         clientNameMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         clientNameMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         clientNameMainBankerJLabel.setVisible(false);
-        clientNameMainBankerJLabel.setBounds(12, 152, 56, 16);
+        clientNameMainBankerJLabel.setBounds(12, 162, 56, 25);
         mainBankerJPanel.add(clientNameMainBankerJLabel);
 
         clientAddressMainBankerJLabel = new JLabel("Address:");
         clientAddressMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         clientAddressMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         clientAddressMainBankerJLabel.setVisible(false);
-        clientAddressMainBankerJLabel.setBounds(12, 181, 56, 16);
+        clientAddressMainBankerJLabel.setBounds(12, 238, 56, 25);
         mainBankerJPanel.add(clientAddressMainBankerJLabel);
 
         clientIncomeMainBankerJLabel = new JLabel("Income:");
         clientIncomeMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         clientIncomeMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         clientIncomeMainBankerJLabel.setVisible(false);
-        clientIncomeMainBankerJLabel.setBounds(12, 210, 56, 16);
+        clientIncomeMainBankerJLabel.setBounds(12, 200, 56, 25);
         mainBankerJPanel.add(clientIncomeMainBankerJLabel);
         
         accountIdMainBankerJLabel = new JLabel("Account ID:");
         accountIdMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         accountIdMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         accountIdMainBankerJLabel.setVisible(false);
-        accountIdMainBankerJLabel.setBounds(12, 270, 127, 16);
+        accountIdMainBankerJLabel.setBounds(12, 276, 127, 25);
         mainBankerJPanel.add(accountIdMainBankerJLabel);
         
         accountBalanceMainBankerJLabel = new JLabel("Balance:");
         accountBalanceMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         accountBalanceMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         accountBalanceMainBankerJLabel.setVisible(false);
-        accountBalanceMainBankerJLabel.setBounds(12, 299, 56, 16);
+        accountBalanceMainBankerJLabel.setBounds(12, 312, 56, 25);
         mainBankerJPanel.add(accountBalanceMainBankerJLabel);
         
         accountTypeMainBankerJLabel = new JLabel("Account Type:");
         accountTypeMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         accountTypeMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         accountTypeMainBankerJLabel.setVisible(false);
-        accountTypeMainBankerJLabel.setBounds(12, 341, 85, 16);
+        accountTypeMainBankerJLabel.setBounds(12, 348, 85, 25);
         mainBankerJPanel.add(accountTypeMainBankerJLabel);
         
-        accountSavedMoneyMainBankerJLabel = new JLabel("Saved Money");
+        accountSavedMoneyMainBankerJLabel = new JLabel("Saved Money:");
         accountSavedMoneyMainBankerJLabel.setHorizontalAlignment(SwingConstants.LEFT);
         accountSavedMoneyMainBankerJLabel.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 13));
         accountSavedMoneyMainBankerJLabel.setVisible(false);
-        accountSavedMoneyMainBankerJLabel.setBounds(12, 370, 127, 16);
+        accountSavedMoneyMainBankerJLabel.setBounds(12, 386, 127, 25);
         mainBankerJPanel.add(accountSavedMoneyMainBankerJLabel);
         
         clientIdMainBankerTextJLabel = new JLabel("");
         clientIdMainBankerTextJLabel.setVisible(false);
-        clientIdMainBankerTextJLabel.setBounds(109, 123, 628, 16);
+        clientIdMainBankerTextJLabel.setBounds(109, 124, 628, 25);
         mainBankerJPanel.add(clientIdMainBankerTextJLabel);
         
         clientNameMainBankerTextJLabel = new JLabel("");
         clientNameMainBankerTextJLabel.setVisible(false);
-        clientNameMainBankerTextJLabel.setBounds(109, 152, 628, 16);
+        clientNameMainBankerTextJLabel.setBounds(109, 162, 628, 25);
         mainBankerJPanel.add(clientNameMainBankerTextJLabel);
         
         clientAddressMainBankerTextJLabel = new JLabel("");
         clientAddressMainBankerTextJLabel.setVisible(false);
-        clientAddressMainBankerTextJLabel.setBounds(109, 181, 628, 16);
+        clientAddressMainBankerTextJLabel.setBounds(109, 238, 628, 25);
         mainBankerJPanel.add(clientAddressMainBankerTextJLabel);
         
         clientIncomeMainBankerTextJLabel = new JLabel("");
         clientIncomeMainBankerTextJLabel.setVisible(false);
-        clientIncomeMainBankerTextJLabel.setBounds(109, 210, 628, 16);
+        clientIncomeMainBankerTextJLabel.setBounds(109, 200, 628, 25);
         mainBankerJPanel.add(clientIncomeMainBankerTextJLabel);
         
         accountIdMainBankerTextJLabel = new JLabel("");
         accountIdMainBankerTextJLabel.setVisible(false);
-        accountIdMainBankerTextJLabel.setBounds(190, 270, 547, 16);
+        accountIdMainBankerTextJLabel.setBounds(109, 276, 628, 25);
         mainBankerJPanel.add(accountIdMainBankerTextJLabel);
         
         accountBalanceMainBankerTextJLabel = new JLabel("");
         accountBalanceMainBankerTextJLabel.setVisible(false);
-        accountBalanceMainBankerTextJLabel.setBounds(109, 299, 628, 16);
+        accountBalanceMainBankerTextJLabel.setBounds(109, 312, 628, 25);
         mainBankerJPanel.add(accountBalanceMainBankerTextJLabel);
         
         accountTypeMainBankerTextJLabel = new JLabel("");
         accountTypeMainBankerTextJLabel.setVisible(false);
-        accountTypeMainBankerTextJLabel.setBounds(109, 341, 628, 16);
+        accountTypeMainBankerTextJLabel.setBounds(109, 348, 628, 25);
         mainBankerJPanel.add(accountTypeMainBankerTextJLabel);
         
         accountSavedMoneyMainBankerTextJLabel = new JLabel("");
         accountSavedMoneyMainBankerTextJLabel.setVisible(false);
-        accountSavedMoneyMainBankerTextJLabel.setBounds(109, 370, 639, 16);
+        accountSavedMoneyMainBankerTextJLabel.setBounds(109, 386, 639, 25);
         mainBankerJPanel.add(accountSavedMoneyMainBankerTextJLabel);
         
         switchAccountsIconMainBankerJLabel = new JLabel("");
@@ -662,16 +669,22 @@ public class ViewApp extends JFrame {
         mainBankerJPanel.add(switchAccountsIconMainBankerJLabel);
         
         saveMoneyMainBankerJButton = new JButton("Save Money");
-        saveMoneyMainBankerJButton.setBounds(97, 55, 117, 25);
+        saveMoneyMainBankerJButton.setBounds(131, 55, 117, 25);
         mainBankerJPanel.add(saveMoneyMainBankerJButton);
         
         breakSavingMainBankerJButton = new JButton("Break Saving");
-        breakSavingMainBankerJButton.setBounds(226, 55, 117, 25);
+        breakSavingMainBankerJButton.setBounds(260, 55, 117, 25);
         mainBankerJPanel.add(breakSavingMainBankerJButton);
         
         askForMoneyMainBankerJButton = new JButton("Ask For Money");
-        askForMoneyMainBankerJButton.setBounds(355, 55, 117, 25);
+        askForMoneyMainBankerJButton.setBounds(389, 55, 117, 25);
         mainBankerJPanel.add(askForMoneyMainBankerJButton);
+        
+        rightsForgetPasswordJLabel_1 = new JLabel("\u00A9 All rights reserved to Piggy Bank");
+        rightsForgetPasswordJLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+        rightsForgetPasswordJLabel_1.setFont(new Font("Leelawadee UI Semilight", Font.PLAIN, 15));
+        rightsForgetPasswordJLabel_1.setBounds(282, 504, 261, 21);
+        mainBankerJPanel.add(rightsForgetPasswordJLabel_1);
         askForMoneyMainBankerJButton.setVisible(false);
         breakSavingMainBankerJButton.setVisible(false);
         saveMoneyMainBankerJButton.setVisible(false);
