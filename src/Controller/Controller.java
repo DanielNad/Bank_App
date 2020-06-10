@@ -9,7 +9,8 @@ import java.awt.event.KeyEvent;
 //TODO: Create tables if there are no existing ones already
 //TODO: Error handling - transferring to an invalid client id etc.
 //TODO: Design patterns
-//TODO: Validate Client ID
+//TODO: Constructor in client with only id
+//TODO: Daniel - Check
 
 public class Controller {
     private Banker banker;
@@ -771,6 +772,7 @@ public class Controller {
             });
         } );
     }
+
     public void updateBankerPanel(){
         viewApp.getClientIdMainBankerJLabel().setVisible(true);
         viewApp.getClientIdMainBankerTextJLabel().setVisible(true);
