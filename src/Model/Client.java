@@ -261,4 +261,22 @@ public class Client extends Person implements DefaultClient
         }
         return false;
     }
+
+    public boolean validateClientId(int clientId){
+        Connection con = ConnectionManager.getConnection();
+        String query = "SELECT * FROM client WHERE id = ?";
+        try {
+            ResultSet rs = null;
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1, clientId);
+            rs = preparedStmt.executeQuery();
+            if (!rs.next())
+                return false;
+            else
+                return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
 }

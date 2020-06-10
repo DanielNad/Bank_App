@@ -57,6 +57,40 @@ public class ViewApp extends JFrame {
     private JSeparator separator_Last;
     private JPanel rightMainBankerJPanel;
     private JLabel bankerHelloJLabel;
+    private JLabel clientIdMainBankerJLabel;
+    private JLabel clientNameMainBankerJLabel;
+    private JLabel clientAddressMainBankerJLabel;
+    private JLabel clientIncomeMainBankerJLabel;
+    private JLabel accountIdMainBankerJLabel;
+    private JLabel accountBalanceMainBankerJLabel;
+    private JLabel accountTypeMainBankerJLabel;
+    private JLabel accountSavedMoneyMainBankerJLabel;
+    private JLabel clientIdMainBankerTextJLabel;
+    private JLabel clientNameMainBankerTextJLabel;
+    private JLabel clientAddressMainBankerTextJLabel;
+    private JLabel clientIncomeMainBankerTextJLabel;
+    private JLabel accountIdMainBankerTextJLabel;
+    private JLabel accountBalanceMainBankerTextJLabel;
+    private JLabel accountTypeMainBankerTextJLabel;
+    private JLabel accountSavedMoneyMainBankerTextJLabel;
+    private JButton selectClientMainBankerJButton;
+    private JButton createNewClientMainBankerJButton;
+    private JButton createNewAccountMainBankerJButton;
+    private JButton createNewChildrenAccountMainBankerJButton;
+    private JButton createNewSavingMainBankerJButton;
+    private JButton createNewChildrenSavingMainBankerJButton;
+    private JButton editClientInfoMainBankerJButton;
+    private JButton transferClientToClientMainBankerJButton;
+    private JButton depositMoneyMainBankerJButton;
+    private JButton withdrawMoneyMainBankerJButton;
+    private JButton createNewBankerMainBankerJButton;
+    private JButton saveMoneyMainBankerJButton;
+    private JButton askForMoneyMainBankerJButton;
+    private JButton breakSavingMainBankerJButton;
+    private JButton backButtonMainBankerJButton;
+    private JComboBox switchAccountMainBankerJComboBox;
+    private JButton selectAccountsMainBankerJButton;
+    private  JLabel switchAccountsMainBankerJLabel;
 
     public ViewApp() {
         setBackground(new Color(255, 255, 255));
@@ -457,20 +491,191 @@ public class ViewApp extends JFrame {
 
 
         mainBankerJPanel = new JPanel();
+        mainBankerJPanel.setVisible(false);
         getContentPane().add(mainBankerJPanel, "name_199232667698700");
         mainBankerJPanel.setLayout(null);
         
         rightMainBankerJPanel = new JPanel();
         rightMainBankerJPanel.setBackground(new Color(0, 250, 154));
-        rightMainBankerJPanel.setBounds(468, 0, 526, 538);
+        rightMainBankerJPanel.setBounds(749, 0, 245, 538);
         mainBankerJPanel.add(rightMainBankerJPanel);
         rightMainBankerJPanel.setLayout(null);
         
         bankerHelloJLabel = new JLabel("");
-        bankerHelloJLabel.setBounds(0, 0, 526, 90);
+        bankerHelloJLabel.setBounds(0, 0, 235, 90);
         bankerHelloJLabel.setForeground(new Color(255, 127, 80));
         bankerHelloJLabel.setFont(new Font("Kristen ITC", Font.PLAIN, 26));
         rightMainBankerJPanel.add(bankerHelloJLabel);
+
+        selectClientMainBankerJButton = new JButton("New button");
+        selectClientMainBankerJButton.setBounds(138, 109, 97, 25);
+        rightMainBankerJPanel.add(selectClientMainBankerJButton);
+        
+        createNewClientMainBankerJButton = new JButton("New button");
+        createNewClientMainBankerJButton.setBounds(138, 147, 97, 25);
+        rightMainBankerJPanel.add(createNewClientMainBankerJButton);
+        
+        createNewAccountMainBankerJButton = new JButton("New button");
+        createNewAccountMainBankerJButton.setVisible(false);
+        createNewAccountMainBankerJButton.setBounds(138, 185, 97, 25);
+        rightMainBankerJPanel.add(createNewAccountMainBankerJButton);
+        
+        createNewChildrenAccountMainBankerJButton = new JButton("New button");
+        createNewChildrenAccountMainBankerJButton.setVisible(false);
+        createNewChildrenAccountMainBankerJButton.setBounds(138, 227, 97, 25);
+        rightMainBankerJPanel.add(createNewChildrenAccountMainBankerJButton);
+        
+        createNewSavingMainBankerJButton = new JButton("New button");
+        createNewSavingMainBankerJButton.setVisible(false);
+        createNewSavingMainBankerJButton.setBounds(138, 265, 97, 25);
+        rightMainBankerJPanel.add(createNewSavingMainBankerJButton);
+        
+        createNewChildrenSavingMainBankerJButton = new JButton("New button");
+        createNewChildrenSavingMainBankerJButton.setVisible(false);
+        createNewChildrenSavingMainBankerJButton.setBounds(138, 303, 97, 25);
+        rightMainBankerJPanel.add(createNewChildrenSavingMainBankerJButton);
+        
+        editClientInfoMainBankerJButton = new JButton("New button");
+        editClientInfoMainBankerJButton.setVisible(false);
+        editClientInfoMainBankerJButton.setBounds(138, 341, 97, 25);
+        rightMainBankerJPanel.add(editClientInfoMainBankerJButton);
+        
+        transferClientToClientMainBankerJButton = new JButton("New button");
+        transferClientToClientMainBankerJButton.setVisible(false);
+        transferClientToClientMainBankerJButton.setBounds(138, 379, 97, 25);
+        rightMainBankerJPanel.add(transferClientToClientMainBankerJButton);
+        
+        depositMoneyMainBankerJButton = new JButton("New button");
+        depositMoneyMainBankerJButton.setVisible(false);
+        depositMoneyMainBankerJButton.setBounds(138, 418, 97, 25);
+        rightMainBankerJPanel.add(depositMoneyMainBankerJButton);
+        
+        withdrawMoneyMainBankerJButton = new JButton("New button");
+        withdrawMoneyMainBankerJButton.setVisible(false);
+        withdrawMoneyMainBankerJButton.setBounds(138, 457, 97, 25);
+        rightMainBankerJPanel.add(withdrawMoneyMainBankerJButton);
+        
+        createNewBankerMainBankerJButton = new JButton("New button");
+        createNewBankerMainBankerJButton.setVisible(false);
+        createNewBankerMainBankerJButton.setBounds(138, 500, 97, 25);
+        rightMainBankerJPanel.add(createNewBankerMainBankerJButton);
+        
+        saveMoneyMainBankerJButton = new JButton("New button");
+        saveMoneyMainBankerJButton.setVisible(false);
+        saveMoneyMainBankerJButton.setBounds(10, 109, 97, 25);
+        rightMainBankerJPanel.add(saveMoneyMainBankerJButton);
+        
+        askForMoneyMainBankerJButton = new JButton("New button");
+        askForMoneyMainBankerJButton.setVisible(false);
+        askForMoneyMainBankerJButton.setBounds(10, 147, 97, 25);
+        rightMainBankerJPanel.add(askForMoneyMainBankerJButton);
+        
+        breakSavingMainBankerJButton = new JButton("New button");
+        breakSavingMainBankerJButton.setVisible(false);
+        breakSavingMainBankerJButton.setBounds(10, 185, 97, 25);
+        rightMainBankerJPanel.add(breakSavingMainBankerJButton);
+        
+        switchAccountsMainBankerJLabel = new JLabel("New label");
+        switchAccountsMainBankerJLabel.setBounds(681, 13, 56, 16);
+        switchAccountsMainBankerJLabel.setVisible(false);
+        mainBankerJPanel.add(switchAccountsMainBankerJLabel);
+        
+        backButtonMainBankerJButton = new JButton("");
+        backButtonMainBankerJButton.setIcon(new ImageIcon("C:\\Users\\Administrator\\Documents\\Projects\\Bank_App\\pics\\return.png"));
+        backButtonMainBankerJButton.setContentAreaFilled(false);
+        backButtonMainBankerJButton.setBorder(BorderFactory.createEmptyBorder());
+        backButtonMainBankerJButton.setBounds(0, 0, 85, 65);
+        mainBankerJPanel.add(backButtonMainBankerJButton);
+        
+        switchAccountMainBankerJComboBox = new JComboBox();
+        switchAccountMainBankerJComboBox.setVisible(false);
+        switchAccountMainBankerJComboBox.setBounds(595, 54, 142, 24);
+        mainBankerJPanel.add(switchAccountMainBankerJComboBox);
+        
+        selectAccountsMainBankerJButton = new JButton("New button");
+        selectAccountsMainBankerJButton.setVisible(false);
+        selectAccountsMainBankerJButton.setBounds(470, 53, 97, 25);
+        mainBankerJPanel.add(selectAccountsMainBankerJButton);
+        
+        clientIdMainBankerJLabel = new JLabel("New label");
+        clientIdMainBankerJLabel.setVisible(false);
+        clientIdMainBankerJLabel.setBounds(12, 123, 56, 16);
+        mainBankerJPanel.add(clientIdMainBankerJLabel);
+        
+        clientNameMainBankerJLabel = new JLabel("New label");
+        clientNameMainBankerJLabel.setVisible(false);
+        clientNameMainBankerJLabel.setBounds(12, 152, 56, 16);
+        mainBankerJPanel.add(clientNameMainBankerJLabel);
+
+        clientAddressMainBankerJLabel = new JLabel("New label");
+        clientAddressMainBankerJLabel.setVisible(false);
+        clientAddressMainBankerJLabel.setBounds(12, 181, 56, 16);
+        mainBankerJPanel.add(clientAddressMainBankerJLabel);
+
+        clientIncomeMainBankerJLabel = new JLabel("New label");
+        clientIncomeMainBankerJLabel.setVisible(false);
+        clientIncomeMainBankerJLabel.setBounds(12, 210, 56, 16);
+        mainBankerJPanel.add(clientIncomeMainBankerJLabel);
+        
+        accountIdMainBankerJLabel = new JLabel("New label");
+        accountIdMainBankerJLabel.setVisible(false);
+        accountIdMainBankerJLabel.setBounds(12, 270, 127, 16);
+        mainBankerJPanel.add(accountIdMainBankerJLabel);
+        
+        accountBalanceMainBankerJLabel = new JLabel("New label");
+        accountBalanceMainBankerJLabel.setVisible(false);
+        accountBalanceMainBankerJLabel.setBounds(12, 299, 56, 16);
+        mainBankerJPanel.add(accountBalanceMainBankerJLabel);
+        
+        accountTypeMainBankerJLabel = new JLabel("New label");
+        accountTypeMainBankerJLabel.setVisible(false);
+        accountTypeMainBankerJLabel.setBounds(12, 341, 56, 16);
+        mainBankerJPanel.add(accountTypeMainBankerJLabel);
+        
+        accountSavedMoneyMainBankerJLabel = new JLabel("New label");
+        accountSavedMoneyMainBankerJLabel.setVisible(false);
+        accountSavedMoneyMainBankerJLabel.setBounds(12, 370, 127, 16);
+        mainBankerJPanel.add(accountSavedMoneyMainBankerJLabel);
+        
+        clientIdMainBankerTextJLabel = new JLabel("");
+        clientIdMainBankerTextJLabel.setVisible(false);
+        clientIdMainBankerTextJLabel.setBounds(109, 123, 56, 16);
+        mainBankerJPanel.add(clientIdMainBankerTextJLabel);
+        
+        clientNameMainBankerTextJLabel = new JLabel("");
+        clientNameMainBankerTextJLabel.setVisible(false);
+        clientNameMainBankerTextJLabel.setBounds(109, 152, 56, 16);
+        mainBankerJPanel.add(clientNameMainBankerTextJLabel);
+        
+        clientAddressMainBankerTextJLabel = new JLabel("");
+        clientAddressMainBankerTextJLabel.setVisible(false);
+        clientAddressMainBankerTextJLabel.setBounds(109, 181, 56, 16);
+        mainBankerJPanel.add(clientAddressMainBankerTextJLabel);
+        
+        clientIncomeMainBankerTextJLabel = new JLabel("");
+        clientIncomeMainBankerTextJLabel.setVisible(false);
+        clientIncomeMainBankerTextJLabel.setBounds(109, 210, 56, 16);
+        mainBankerJPanel.add(clientIncomeMainBankerTextJLabel);
+        
+        accountIdMainBankerTextJLabel = new JLabel("");
+        accountIdMainBankerTextJLabel.setVisible(false);
+        accountIdMainBankerTextJLabel.setBounds(190, 270, 228, 16);
+        mainBankerJPanel.add(accountIdMainBankerTextJLabel);
+        
+        accountBalanceMainBankerTextJLabel = new JLabel("");
+        accountBalanceMainBankerTextJLabel.setVisible(false);
+        accountBalanceMainBankerTextJLabel.setBounds(109, 299, 56, 16);
+        mainBankerJPanel.add(accountBalanceMainBankerTextJLabel);
+        
+        accountTypeMainBankerTextJLabel = new JLabel("");
+        accountTypeMainBankerTextJLabel.setVisible(false);
+        accountTypeMainBankerTextJLabel.setBounds(109, 341, 56, 16);
+        mainBankerJPanel.add(accountTypeMainBankerTextJLabel);
+        
+        accountSavedMoneyMainBankerTextJLabel = new JLabel("");
+        accountSavedMoneyMainBankerTextJLabel.setVisible(false);
+        accountSavedMoneyMainBankerTextJLabel.setBounds(109, 370, 56, 16);
+        mainBankerJPanel.add(accountSavedMoneyMainBankerTextJLabel);
         InvalidUsername.setVisible(false);
     }
 
@@ -756,5 +961,145 @@ public class ViewApp extends JFrame {
 
     public void setSeparator_Last(JSeparator separator_Last) {
         this.separator_Last = separator_Last;
+    }
+
+    public JLabel getBankerHelloJLabel() {
+        return bankerHelloJLabel;
+    }
+
+    public JLabel getClientIdMainBankerJLabel() {
+        return clientIdMainBankerJLabel;
+    }
+
+    public JLabel getClientNameMainBankerJLabel() {
+        return clientNameMainBankerJLabel;
+    }
+
+    public JLabel getClientAddressMainBankerJLabel() {
+        return clientAddressMainBankerJLabel;
+    }
+
+    public JLabel getClientIncomeMainBankerJLabel() {
+        return clientIncomeMainBankerJLabel;
+    }
+
+    public JLabel getAccountIdMainBankerJLabel() {
+        return accountIdMainBankerJLabel;
+    }
+
+    public JLabel getAccountBalanceMainBankerJLabel() {
+        return accountBalanceMainBankerJLabel;
+    }
+
+    public JLabel getAccountTypeMainBankerJLabel() {
+        return accountTypeMainBankerJLabel;
+    }
+
+    public JLabel getAccountSavedMoneyMainBankerJLabel() {
+        return accountSavedMoneyMainBankerJLabel;
+    }
+
+    public JLabel getClientIdMainBankerTextJLabel() {
+        return clientIdMainBankerTextJLabel;
+    }
+
+    public JLabel getClientNameMainBankerTextJLabel() {
+        return clientNameMainBankerTextJLabel;
+    }
+
+    public JLabel getClientAddressMainBankerTextJLabel() {
+        return clientAddressMainBankerTextJLabel;
+    }
+
+    public JLabel getClientIncomeMainBankerTextJLabel() {
+        return clientIncomeMainBankerTextJLabel;
+    }
+
+    public JLabel getAccountIdMainBankerTextJLabel() {
+        return accountIdMainBankerTextJLabel;
+    }
+
+    public JLabel getAccountBalanceMainBankerTextJLabel() {
+        return accountBalanceMainBankerTextJLabel;
+    }
+
+    public JLabel getAccountTypeMainBankerTextJLabel() {
+        return accountTypeMainBankerTextJLabel;
+    }
+
+    public JLabel getAccountSavedMoneyMainBankerTextJLabel() {
+        return accountSavedMoneyMainBankerTextJLabel;
+    }
+
+    public JButton getSelectClientMainBankerJButton() {
+        return selectClientMainBankerJButton;
+    }
+
+    public JButton getCreateNewClientMainBankerJButton() {
+        return createNewClientMainBankerJButton;
+    }
+
+    public JButton getCreateNewAccountMainBankerJButton() {
+        return createNewAccountMainBankerJButton;
+    }
+
+    public JButton getCreateNewChildrenAccountMainBankerJButton() {
+        return createNewChildrenAccountMainBankerJButton;
+    }
+
+    public JButton getCreateNewSavingMainBankerJButton() {
+        return createNewSavingMainBankerJButton;
+    }
+
+    public JButton getCreateNewChildrenSavingMainBankerJButton() {
+        return createNewChildrenSavingMainBankerJButton;
+    }
+
+    public JButton getEditClientInfoMainBankerJButton() {
+        return editClientInfoMainBankerJButton;
+    }
+
+    public JButton getTransferClientToClientMainBankerJButton() {
+        return transferClientToClientMainBankerJButton;
+    }
+
+    public JButton getDepositMoneyMainBankerJButton() {
+        return depositMoneyMainBankerJButton;
+    }
+
+    public JButton getWithdrawMoneyMainBankerJButton() {
+        return withdrawMoneyMainBankerJButton;
+    }
+
+    public JButton getCreateNewBankerMainBankerJButton() {
+        return createNewBankerMainBankerJButton;
+    }
+
+    public JButton getSaveMoneyMainBankerJButton() {
+        return saveMoneyMainBankerJButton;
+    }
+
+    public JButton getAskForMoneyMainBankerJButton() {
+        return askForMoneyMainBankerJButton;
+    }
+
+    public JButton getBreakSavingMainBankerJButton() {
+        return breakSavingMainBankerJButton;
+    }
+
+    public JButton getBackButtonMainBankerJButton() {
+        return backButtonMainBankerJButton;
+    }
+
+    public JComboBox getSwitchAccountMainBankerJComboBox() {
+        return switchAccountMainBankerJComboBox;
+    }
+
+    public JButton getSelectAccountsMainBankerJButton() {
+        return selectAccountsMainBankerJButton;
+    }
+
+    public JLabel getSwitchAccountsMainBankerJLabel() {
+        return switchAccountsMainBankerJLabel;
     }
 }
