@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 //TODO: Create tables if there are no existing ones already
 //TODO: Error handling - transferring to an invalid client id etc.
 //TODO: Design patterns
-//TODO: Constructor in client with only id
+//TODO: Validate Client ID
 
 public class Controller {
     private Banker banker;
@@ -42,6 +42,10 @@ public class Controller {
             }
             else {
                 this.banker = new Banker(user);
+                viewApp.getLoginPanel().setVisible(false);
+                viewApp.getMainBankerPanel().setVisible(true);
+                this.clearLoginPanel();
+                this.mainBankerPanel();
             }
         }
         else if (isManager())
@@ -52,10 +56,11 @@ public class Controller {
             }
             else {
                 this.banker = new BankManager(user);
-                if(this.banker instanceof BankManager)
-                {
-                    System.out.println((BankManager)banker);
-                }
+                viewApp.getLoginPanel().setVisible(false);
+                viewApp.getMainBankerPanel().setVisible(true);
+                this.clearLoginPanel();
+                this.mainBankerPanel();
+
             }
         }
         else
@@ -620,4 +625,234 @@ public class Controller {
             }
         });
     }
+
+    public void mainBankerPanel(){
+        JFrame f = new JFrame();
+        f.setSize(700, 300);
+        viewApp.getBankerHelloJLabel().setText("Hello:"+banker.getFirstName());
+        viewApp.getSelectClientMainBankerJButton().addActionListener(e -> {
+            JDialog dialog = new JDialog(f,"Select Client");
+            JLabel label_error = new JLabel("Were sorry, you do not have enough money.");
+            JLabel label = new JLabel("Please enter a valid Client ID:");
+            JButton button = new JButton();
+            JTextField jTextField = new JTextField();
+
+            dialog.add(jTextField);
+            dialog.add(label);
+            dialog.add(label_error);
+            dialog.add(button);
+
+            dialog.setLayout(null);
+
+            label.setFont(label.getFont().deriveFont(20.0f));
+            label.setBounds(10,10,500,30);
+
+            label_error.setBounds(20,85,500,30);
+            label_error.setForeground(Color.red);
+            label_error.setVisible(false);
+
+            button.setBounds(280,70,60,20);
+            button.setText("OK");
+
+            jTextField.setBounds(20,70,250,20);
+
+            dialog.setLocationByPlatform(true);
+            dialog.setLocationRelativeTo(viewApp.getMainClientPanel());
+            dialog.setSize(500,200);
+            dialog.setVisible(true);
+
+            validateTextField(jTextField);
+
+            button.addActionListener(e1 -> {
+                if(!jTextField.getText().equals(""))
+                {
+                    if(true) {
+                        client=new Client(Integer.parseInt(jTextField.getText()));
+                        account=client.getMyAccounts().searchAccount(client.getClientId()+"-1");
+                        dialog.setVisible(false);
+                        updateBankerPanel();
+                    }
+                    else{
+                        label_error.setVisible(true);
+                        invalidThread(label_error);
+                    }
+                }
+            });
+        });
+        viewApp.getSelectAccountsMainBankerJButton().addActionListener(e -> {switchAccountInBanker();});
+        viewApp.getCreateNewClientMainBankerJButton().addActionListener(e -> {
+        });
+        viewApp.getCreateNewAccountMainBankerJButton().addActionListener(e -> {
+            JDialog dialog = new JDialog(f,"Create New Account");
+            JLabel label = new JLabel("Request Accepted!");
+            JButton button = new JButton();
+
+            dialog.add(label);
+            dialog.add(button);
+
+            dialog.setLayout(null);
+
+            label.setVerticalAlignment(JLabel.CENTER);
+            label.setFont(label.getFont().deriveFont(20.0f));
+            label.setBounds(10,10,500,30);
+
+            button.setBounds(220,80,60,20);
+            button.setText("OK");
+
+            dialog.setLocationByPlatform(true);
+            dialog.setLocationRelativeTo(viewApp.getMainClientPanel());
+            dialog.setSize(500,200);
+            dialog.setVisible(true);
+
+            client.newAccount();
+
+            account = client.getMyAccounts().searchAccount(client.getClientId() + "-" + client.getNumber_of_accounts());
+
+            updateBankerPanel();
+
+            button.addActionListener(e1 -> {
+                dialog.setVisible(false);
+            });
+        });
+        viewApp.getCreateNewChildrenAccountMainBankerJButton().addActionListener(e ->{
+            JDialog dialog = new JDialog(f,"Create New Children Account");
+            JLabel head = new JLabel("Create New Children Account:");
+            JLabel name = new JLabel("Children name:");
+            JLabel parent = new JLabel("Parent Account ID:");
+            JLabel label = new JLabel("Request Accepted!");
+            JTextField name_text = new JTextField();
+            JComboBox comboBox = new JComboBox();
+            JButton button = new JButton();
+
+            for (String s:client.getMyAccounts().getList().keySet()) {
+                comboBox.addItem(s);
+            }
+
+            dialog.add(head);
+            dialog.add(name);
+            dialog.add(parent);
+            dialog.add(label);
+            dialog.add(name_text);
+            dialog.add(comboBox);
+            dialog.add(button);
+
+            dialog.setLayout(null);
+
+            head.setVerticalAlignment(JLabel.CENTER);
+            head.setFont(label.getFont().deriveFont(20.0f));
+            head.setBounds(10,10,500,30);
+
+            name.setBounds(20,45,500,20);
+
+            name_text.setBounds(20,70,300,30);
+
+            parent.setBounds(20,105,500,30);
+
+            comboBox.setBounds(20,140,300,30);
+
+            button.setBounds(140,180,60,20);
+
+            button.setText("OK");
+
+            dialog.setLocationByPlatform(true);
+            dialog.setLocationRelativeTo(viewApp.getMainClientPanel());
+            dialog.setSize(450,300);
+            dialog.setVisible(true);
+
+            final String s = comboBox.getSelectedItem().toString();
+
+            button.addActionListener(e1 -> {
+                if(!name_text.getText().equals("")) {
+                    client.newChildrenAccount(name_text.getText(), s);
+                    account = client.getMyAccounts().searchAccount(client.getClientId() + "-" + client.getNumber_of_accounts());
+                    updateBankerPanel();
+                    dialog.setVisible(false);
+                }
+            });
+        } );
+    }
+    public void updateBankerPanel(){
+        viewApp.getClientIdMainBankerJLabel().setVisible(true);
+        viewApp.getClientIdMainBankerTextJLabel().setVisible(true);
+        viewApp.getClientIdMainBankerTextJLabel().setText(client.getClientId()+"");
+        viewApp.getClientNameMainBankerJLabel().setVisible(true);
+        viewApp.getClientNameMainBankerTextJLabel().setVisible(true);
+        viewApp.getClientNameMainBankerTextJLabel().setText(client.getFirstName() + " " + client.getLastName());
+        viewApp.getClientAddressMainBankerJLabel().setVisible(true);
+        viewApp.getClientAddressMainBankerTextJLabel().setVisible(true);
+        viewApp.getClientAddressMainBankerTextJLabel().setText(client.getAddress());
+        viewApp.getClientIncomeMainBankerJLabel().setVisible(true);
+        viewApp.getClientIncomeMainBankerTextJLabel().setVisible(true);
+        viewApp.getClientIncomeMainBankerTextJLabel().setText(client.getIncome() + "");
+
+        viewApp.getAccountTypeMainBankerJLabel().setVisible(true);
+        viewApp.getAccountTypeMainBankerTextJLabel().setVisible(true);
+        viewApp.getAccountIdMainBankerJLabel().setVisible(true);
+        viewApp.getAccountIdMainBankerTextJLabel().setVisible(true);
+        viewApp.getAccountIdMainBankerTextJLabel().setText(account.getAccountId());
+        viewApp.getAccountBalanceMainBankerJLabel().setVisible(true);
+        viewApp.getAccountBalanceMainBankerTextJLabel().setVisible(true);
+        viewApp.getAccountBalanceMainBankerTextJLabel().setText(account.getBalance() + "");
+
+        viewApp.getCreateNewAccountMainBankerJButton().setVisible(true);
+        viewApp.getCreateNewChildrenAccountMainBankerJButton().setVisible(true);
+        viewApp.getCreateNewSavingMainBankerJButton().setVisible(true);
+        viewApp.getCreateNewChildrenSavingMainBankerJButton().setVisible(true);
+        viewApp.getEditClientInfoMainBankerJButton().setVisible(true);
+        viewApp.getTransferClientToClientMainBankerJButton().setVisible(true);
+        viewApp.getDepositMoneyMainBankerJButton().setVisible(true);
+        viewApp.getWithdrawMoneyMainBankerJButton().setVisible(true);
+        viewApp.getSwitchAccountMainBankerJComboBox().setVisible(true);
+        viewApp.getSelectAccountsMainBankerJButton().setVisible(true);
+        viewApp.getSwitchAccountsMainBankerJLabel().setVisible(true);
+
+
+
+        if(banker instanceof BankManager){
+            viewApp.getCreateNewBankerMainBankerJButton().setVisible(true);
+
+        }
+
+
+        if(account instanceof ChildrenAccount) {
+            viewApp.getAccountTypeMainBankerTextJLabel().setText("Children Account");
+            viewApp.getAskForMoneyMainBankerJButton().setVisible(true);
+            viewApp.getSaveMoneyMainBankerJButton().setVisible(false);
+            viewApp.getBreakSavingMainBankerJButton().setVisible(false);
+            viewApp.getCreateNewChildrenSavingMainBankerJButton().setVisible(false);
+            }
+            else if(account instanceof ChildrenSaving){
+                viewApp.getAccountTypeMainBankerTextJLabel().setText("Children Saving");
+                viewApp.getAskForMoneyMainBankerJButton().setVisible(false);
+                viewApp.getSaveMoneyMainBankerJButton().setVisible(true);
+                viewApp.getBreakSavingMainBankerJButton().setVisible(true);
+                viewApp.getSavingClientMainNumberJLabel().setText(((ChildrenSaving) account).getSaved_money()+"");
+            }
+            else if(account instanceof Saving){
+                viewApp.getAccountTypeMainBankerTextJLabel().setText("Saving");
+                viewApp.getAskForMoneyMainBankerJButton().setVisible(false);
+                viewApp.getSaveMoneyMainBankerJButton().setVisible(true);
+                viewApp.getBreakSavingMainBankerJButton().setVisible(false);
+                viewApp.getSavingClientMainNumberJLabel().setText(((ChildrenSaving) account).getSaved_money()+"");
+            }
+            else{
+                viewApp.getAccountTypeMainBankerTextJLabel().setText("Regular Account");
+                viewApp.getAskForMoneyMainBankerJButton().setVisible(false);
+                viewApp.getSaveMoneyMainBankerJButton().setVisible(false);
+                viewApp.getBreakSavingMainBankerJButton().setVisible(false);
+            }
+        viewApp.getSwitchAccountMainBankerJComboBox().removeAllItems();
+        for (String s:client.getMyAccounts().getList().keySet()) {
+            viewApp.getSwitchAccountMainBankerJComboBox().addItem(s);
+        }
+
+    }
+
+    public void switchAccountInBanker() {
+        String selected_item = viewApp.getSwitchAccountMainBankerJComboBox().getSelectedItem().toString();
+        account = client.getMyAccounts().getList().get(selected_item);
+        this.updateBankerPanel();
+
+    }
+
 }
