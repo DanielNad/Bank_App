@@ -31,7 +31,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public ResultSet searchClientId(int clientId)  {
+    public ResultSet searchClientId(int clientId) {
         String query = "SELECT * FROM client where id = " + clientId;
         try {
             resultSet = ConnectionManager.getInstance().executeQuery(query);
@@ -57,7 +57,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public void retrieveAccounts(Client client)  {
+    public void retrieveAccounts(Client client) {
         String query = "SELECT * FROM account Where id = " + client.getClientId();
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         {
@@ -90,7 +90,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public boolean validateClientId(int clientId)  {
+    public boolean validateClientId(int clientId) {
         String query = "SELECT * FROM client WHERE id = " + clientId;
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -105,7 +105,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public boolean validateClientUser(User user)  {
+    public boolean validateClientUser(User user) {
         String query = "SELECT * FROM client WHERE username = '" + user.getUsername() + "' AND password = '" + user.getPassword() + "'" ;
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -120,7 +120,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public boolean validateClientUsername(String username)  {
+    public boolean validateClientUsername(String username) {
         String query = "SELECT * FROM client WHERE username = '" + username + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -141,7 +141,7 @@ public class ClientRepository implements ClientServicesInterface {
     }
 
     @Override
-    public void insertClient(Client client)  {
+    public void insertClient(Client client) {
         String query = "INSERT INTO client(id,income,password,address,fname,lname,username,number_of_accounts)" +
                 " VALUES (" + client.getClientId() + "," + client.getIncome() + ",'" + client.getMyUser().getPassword() +
                 "','" + client.getAddress() + "','" + client.getFirstName() + "','" + client.getLastName() + "','" +

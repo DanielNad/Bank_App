@@ -13,7 +13,7 @@ public class BankerRepository implements BankerServicesInteface {
     private ResultSet resultSet;
 
     @Override
-    public Banker createBanker(ResultSet resultSet)  {
+    public Banker createBanker(ResultSet resultSet) {
         Banker banker = null;
         try {
             banker = new Banker(
@@ -31,7 +31,7 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public BankManager createBankManager(ResultSet resultSet)  {
+    public BankManager createBankManager(ResultSet resultSet) {
         BankManager banker = null;
         try {
             banker = new BankManager(
@@ -49,7 +49,7 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public ResultSet searchBankerUser(User user)  {
+    public ResultSet searchBankerUser(User user) {
         String query = "SELECT * FROM banker WHERE username = '" + user.getUsername() + "' AND password = '" +
                 user.getPassword() + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
@@ -63,7 +63,7 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public boolean validateBankerUser(User user)  {
+    public boolean validateBankerUser(User user) {
         String query = "SELECT * FROM banker WHERE username = '" + user.getUsername() + "' AND password = '" + user.getPassword() + "'" ;
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -78,7 +78,7 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public boolean validateBankerId(int bankerId)  {
+    public boolean validateBankerId(int bankerId) {
         String query = "SELECT * FROM banker WHERE banker_id = " + bankerId;
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -93,7 +93,7 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public boolean validateBankerUsername(String username)  {
+    public boolean validateBankerUsername(String username) {
         String query = "SELECT * FROM banker WHERE username = '" + username + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -108,28 +108,29 @@ public class BankerRepository implements BankerServicesInteface {
     }
 
     @Override
-    public boolean validateBankMangaer(String username, String password)  {
+    public boolean validateBankMangaer(String username, String password) {
         String query = "SELECT * FROM banker WHERE username = '" + username + "' AND password = '" + password + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
-            resultSet.next();
-            if (!resultSet.getBoolean("is_manager"))
-                return false;
-            else
-                return true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+            if(resultSet.next()) {
+                if (!resultSet.getBoolean("is_manager"))
+                    return false;
+                else
+                    return true;
+            }
+        } catch (SQLException throwables){
+                throwables.printStackTrace();
+            }
         return false;
     }
 
     @Override
-    public void setNewBankerPassword(String username, String password)  {
+    public void setNewBankerPassword(String username, String password) {
         String query = "UPDATE banker SET password = '" + password + "' WHERE username = '" + username + "'";
     }
 
     @Override
-    public void insertBanker(Banker banker)  {
+    public void insertBanker(Banker banker) {
         String query = "INSERT INTO banker(banker_id,address,fname,lname,password,username)" +
                 " VALUES (" + banker.getBankerId() + ",'" + banker.getAddress() +
                 "','" + banker.getFirstName() + "','" + banker.getLastName() + "','" + banker.getMyUser().getPassword() + "','" +

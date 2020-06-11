@@ -9,7 +9,7 @@ public class AccountRepository implements AccountServicesInterface {
     private ResultSet resultSet;
 
     @Override
-    public Account createAccount(ResultSet resultSet)  {
+    public Account createAccount(ResultSet resultSet) {
         Account account = null;
         try {
             account = new Account(
@@ -24,7 +24,7 @@ public class AccountRepository implements AccountServicesInterface {
     }
 
     @Override
-    public ChildrenAccount createChildrenAccount(ResultSet resultSet)  {
+    public ChildrenAccount createChildrenAccount(ResultSet resultSet) {
         ChildrenAccount account = null;
         try {
             account = new ChildrenAccount(
@@ -56,7 +56,7 @@ public class AccountRepository implements AccountServicesInterface {
     }
 
     @Override
-    public Saving createSaving(ResultSet resultSet)  {
+    public Saving createSaving(ResultSet resultSet) {
         Saving account = null;
         try {
             account = new Saving(
@@ -71,7 +71,7 @@ public class AccountRepository implements AccountServicesInterface {
     }
 
     @Override
-    public ResultSet searchAccountId(String accountId)  {
+    public ResultSet searchAccountId(String accountId) {
         String query = "SELECT * FROM account WHERE account_id = '" + accountId + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
@@ -84,7 +84,7 @@ public class AccountRepository implements AccountServicesInterface {
     }
 
     @Override
-    public boolean validateAccountId(String accountId)  {
+    public boolean validateAccountId(String accountId) {
         String query = "SELECT * FROM account WHERE account_id = '" + accountId + "'";
         resultSet = ConnectionManager.getInstance().executeQuery(query);
         try {
