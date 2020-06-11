@@ -8,9 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
+import java.util.Objects;
 
-//TODO: Design Pattern
 //TODO: JUnit test.
 //TODO: Video Clip.
 //TODO: Readme - Install, Links, Guides, Create tables if there are no existing ones already, Create admin.
@@ -22,10 +21,10 @@ public class Controller {
     private Client client;
     private Account account;
     private User user;
-    private ClientRepository clientRepository;
-    private BankerRepository bankerRepository;
-    private AccountRepository accountRepository;
-    private ViewApp viewApp;
+    private final ClientRepository clientRepository;
+    private final BankerRepository bankerRepository;
+    private final AccountRepository accountRepository;
+    private final ViewApp viewApp;
 
     public Controller(ViewApp viewApp) {
         this.banker = null;
@@ -36,9 +35,9 @@ public class Controller {
         this.accountRepository = new AccountRepository();
         this.viewApp = viewApp;
         JButton login_button = this.viewApp.getLoginButton();
-        login_button.addActionListener(e -> { this.login();});
+        login_button.addActionListener(e -> this.login());
         JButton forget_button = this.viewApp.getForgetPassword();
-        forget_button.addActionListener(e -> {this.forgetPassword();});
+        forget_button.addActionListener(e -> this.forgetPassword());
         viewApp.getSwitchAccountJButton().addActionListener(e -> this.switchAccount());
     }
 
@@ -107,7 +106,7 @@ public class Controller {
         viewApp.getLoginPanel().setVisible(false);
         viewApp.getForgetPasswordPanel().setVisible(true);
         JButton forget_button_on_panel = this.viewApp.getChangePasswordButuon();
-        forget_button_on_panel.addActionListener(e -> {this.validateForgetPasswordPanel();});
+        forget_button_on_panel.addActionListener(e -> this.validateForgetPasswordPanel());
         this.clearForgetPasswordPanel();
     }
 
@@ -160,18 +159,15 @@ public class Controller {
     }
 
     public void invalidThread(JLabel label){
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    sleep(3000);
-                    label.setVisible(false);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+        new Thread(() -> {
+            try {
+                Thread.sleep(3000);
+                label.setVisible(false);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }.start();
+
+        }).start();
     }
 
     public void clearLoginPanel(){
@@ -235,7 +231,7 @@ public class Controller {
     }
 
     public void switchAccount(){
-        String selected_item = viewApp.getSelectAccountComboBox().getSelectedItem().toString();
+        String selected_item = Objects.requireNonNull(viewApp.getSelectAccountComboBox().getSelectedItem()).toString();
         account = client.getMyAccounts().getList().get(selected_item);
         viewApp.getSelectAccountComboBox().removeAllItems();
         this.updateClientMainPanel();
@@ -432,9 +428,7 @@ public class Controller {
 
             updateClientMainPanel();
 
-            button.addActionListener(e1 -> {
-                dialog.setVisible(false);
-            });
+            button.addActionListener(e1 -> dialog.setVisible(false));
         });
         viewApp.getNewChildrenAccountButton().addActionListener(e -> {
             JDialog dialog = new JDialog(f,"Create New Children Account");
@@ -531,7 +525,7 @@ public class Controller {
             button.addActionListener(e1 -> {
                 if(!jTextField.getText().equals("")) {
                     Account account1 = client.getMyAccounts().searchAccount(((ChildrenAccount) account).getParentId());
-                    if (((ChildrenAccount) account).askForMoney(account1, Integer.parseInt(jTextField.getText().toString()))) {
+                    if (((ChildrenAccount) account).askForMoney(account1, Integer.parseInt(jTextField.getText()))) {
                         accountRepository.updateAccount(account);
                         accountRepository.updateAccount(account1);
                         client = clientRepository.createClient(clientRepository.searchClientId(client.getClientId()));
@@ -595,7 +589,7 @@ public class Controller {
             });
         });
         viewApp.getBreakeSavingJButton().addActionListener(e -> {
-            JDialog dialog = new JDialog(f,"Breake Children's Saving:");
+            JDialog dialog = new JDialog(f,"Break Children's Saving:");
             JLabel label = new JLabel("Please enter account ID to transfer to:");
             JLabel label_error = new JLabel("Were sorry, the provided account is not a children's account.");
             JButton button = new JButton();
@@ -648,15 +642,8 @@ public class Controller {
     public void validateTextField(JTextField jTextField){
         jTextField.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
-                String value = jTextField.getText();
-                int l = value.length();
-                if ((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8 ) {
-                    jTextField.setEditable(true);
-
-                } else {
-                    jTextField.setEditable(false);
-
-                }
+                jTextField.getText();
+                jTextField.setEditable((ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') || ke.getKeyChar() == 8);
             }
         });
     }
@@ -667,12 +654,13 @@ public class Controller {
         viewApp.getBankerHelloJLabel().setText("Hello " + banker.getFirstName());
         viewApp.getBackButtonMainBankerJButton().addActionListener(e -> {
             this.clearLoginPanel();
+            this.clearBankerMainPanel();
             viewApp.getLoginPanel().setVisible(true);
             viewApp.getMainBankerPanel().setVisible(false);
         });
         viewApp.getSelectClientMainBankerJButton().addActionListener(e -> {
             JDialog dialog = new JDialog(f,"Select Client");
-            JLabel label_error = new JLabel("Were sorry, you do not have enough money.");
+            JLabel label_error = new JLabel("Were sorry, this client do not exists.");
             JLabel label = new JLabel("Please enter a valid Client ID:");
             JButton button = new JButton();
             JTextField jTextField = new JTextField();
@@ -706,7 +694,7 @@ public class Controller {
             button.addActionListener(e1 -> {
                 if(!jTextField.getText().equals(""))
                 {
-                    if(true) {
+                    if(clientRepository.validateClientId(Integer.parseInt(jTextField.getText()))) {
                         client = clientRepository.createClient(clientRepository.searchClientId(Integer.parseInt(jTextField.getText())));
                         account = client.getMyAccounts().searchAccount(client.getClientId()+"-1");
                         dialog.setVisible(false);
@@ -719,7 +707,7 @@ public class Controller {
                 }
             });
         });
-        viewApp.getSelectAccountsMainBankerJButton().addActionListener(e -> {switchAccountInBanker();});
+        viewApp.getSelectAccountsMainBankerJButton().addActionListener(e -> switchAccountInBanker());
         viewApp.getCreateNewClientMainBankerJButton().addActionListener(e -> {
             JDialog dialog = new JDialog(f,"Create New Client");
             JLabel label_error = new JLabel("Were sorry, something went wrong...");
@@ -952,9 +940,7 @@ public class Controller {
             accountRepository.updateAccount(account);
             updateBankerPanel();
 
-            button.addActionListener(e1 -> {
-                dialog.setVisible(false);
-            });
+            button.addActionListener(e1 -> dialog.setVisible(false));
         });
         viewApp.getCreateNewChildrenSavingMainBankerJButton().addActionListener(e -> {
             JDialog dialog = new JDialog(f,"Create New Children Saving");
@@ -984,9 +970,7 @@ public class Controller {
             accountRepository.updateAccount(account);
             updateBankerPanel();
 
-            button.addActionListener(e1 -> {
-                dialog.setVisible(false);
-            });
+            button.addActionListener(e1 -> dialog.setVisible(false));
         });
         viewApp.getEditClientInfoMainBankerJButton().addActionListener(e -> {
             JDialog dialog = new JDialog(f,"Create New Client");
@@ -1355,7 +1339,7 @@ public class Controller {
             button.addActionListener(e1 -> {
                 if(!jTextField.getText().equals("")) {
                     Account account1 = client.getMyAccounts().searchAccount(((ChildrenAccount) account).getParentId());
-                    if (((ChildrenAccount) account).askForMoney(account1, Integer.parseInt(jTextField.getText().toString()))) {
+                    if (((ChildrenAccount) account).askForMoney(account1, Integer.parseInt(jTextField.getText()))) {
                         accountRepository.updateAccount(account);
                         accountRepository.updateAccount(account1);
                         client = clientRepository.createClient(clientRepository.searchClientId(client.getClientId()));
@@ -1549,6 +1533,47 @@ public class Controller {
         viewApp.getSwitchAccountMainBankerJComboBox().removeAllItems();
         for (String s:client.getMyAccounts().getList().keySet()) {
             viewApp.getSwitchAccountMainBankerJComboBox().addItem(s);
+        }
+    }
+
+    public void clearBankerMainPanel(){
+        viewApp.getClientIdMainBankerJLabel().setVisible(false);
+        viewApp.getClientIdMainBankerTextJLabel().setVisible(false);
+        viewApp.getClientNameMainBankerJLabel().setVisible(false);
+        viewApp.getClientNameMainBankerTextJLabel().setVisible(false);
+        viewApp.getClientAddressMainBankerJLabel().setVisible(false);
+        viewApp.getClientAddressMainBankerTextJLabel().setVisible(false);
+        viewApp.getClientIncomeMainBankerJLabel().setVisible(false);
+        viewApp.getClientIncomeMainBankerTextJLabel().setVisible(false);
+
+        viewApp.getAccountTypeMainBankerJLabel().setVisible(false);
+        viewApp.getAccountTypeMainBankerTextJLabel().setVisible(false);
+        viewApp.getAccountIdMainBankerJLabel().setVisible(false);
+        viewApp.getAccountIdMainBankerTextJLabel().setVisible(false);
+        viewApp.getAccountBalanceMainBankerJLabel().setVisible(false);
+        viewApp.getAccountBalanceMainBankerTextJLabel().setVisible(false);
+
+        viewApp.getSwitchAccountsIconMainBankerJLabel().setVisible(false);
+        viewApp.getCreateNewAccountMainBankerJButton().setVisible(false);
+        viewApp.getCreateNewChildrenAccountMainBankerJButton().setVisible(false);
+        viewApp.getCreateNewSavingMainBankerJButton().setVisible(false);
+        viewApp.getCreateNewChildrenSavingMainBankerJButton().setVisible(false);
+        viewApp.getEditClientInfoMainBankerJButton().setVisible(false);
+        viewApp.getTransferClientToClientMainBankerJButton().setVisible(false);
+        viewApp.getDepositMoneyMainBankerJButton().setVisible(false);
+        viewApp.getWithdrawMoneyMainBankerJButton().setVisible(false);
+        viewApp.getSwitchAccountMainBankerJComboBox().setVisible(false);
+        viewApp.getSelectAccountsMainBankerJButton().setVisible(false);
+        viewApp.getSwitchAccountsMainBankerJLabel().setVisible(false);
+
+        viewApp.getAskForMoneyMainBankerJButton().setVisible(false);
+        viewApp.getSaveMoneyMainBankerJButton().setVisible(false);
+        viewApp.getBreakSavingMainBankerJButton().setVisible(false);
+        viewApp.getAccountSavedMoneyMainBankerJLabel().setVisible(false);
+        viewApp.getAccountSavedMoneyMainBankerTextJLabel().setVisible(false);
+
+        if(banker instanceof BankManager){
+            viewApp.getCreateNewBankerMainBankerJButton().setVisible(true);
         }
     }
 

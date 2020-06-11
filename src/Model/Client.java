@@ -1,5 +1,7 @@
 package Model;
 
+import lombok.Builder;
+
 import java.sql.*;
 
 public class Client extends Person implements DefaultClient
@@ -9,8 +11,9 @@ public class Client extends Person implements DefaultClient
     private User my_user;
     private int clientId;
     private int number_of_accounts;
-    private ResultSet rs = null;
 
+    public Client(){super();}
+    /*
     public Client(String last_name, String first_name, String address, int income, String username, String password, int clientId) {
         super(last_name, first_name, address);
         this.income=income;
@@ -27,6 +30,11 @@ public class Client extends Person implements DefaultClient
         this.my_user=new User(username,password);
         this.clientId=clientId;
         this.number_of_accounts = number_of_accounts;
+    }
+     */
+    //Desing Pattern - Builder
+    public static ClientBuilder builder(){
+        return new ClientBuilder();
     }
 
     public Accountlist getMyAccounts() {
@@ -57,6 +65,18 @@ public class Client extends Person implements DefaultClient
         this.number_of_accounts = number_of_accounts;
     }
 
+    public void setMy_accounts(Accountlist my_accounts) {
+        this.my_accounts = my_accounts;
+    }
+
+    public void setMy_user(User my_user) {
+        this.my_user = my_user;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
     @Override
     public void depositMoney(int sum, String accountid) {
         Account account = this.getMyAccounts().searchAccount(accountid);
@@ -77,12 +97,11 @@ public class Client extends Person implements DefaultClient
     public boolean transferMoney(int money, String from_id, Account to_id) {
 
         Account account1 = this.my_accounts.searchAccount(from_id);
-        Account account2 = to_id;
         if(account1.getBalance()<money)
             return false;
         else {
             account1.addToBalance(-money);
-            account2.addToBalance(money);
+            to_id.addToBalance(money);
         }
         return true;
     }

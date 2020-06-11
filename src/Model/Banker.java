@@ -18,8 +18,7 @@ public class Banker extends Person
     }
 
     public Client createNewClient(String first_name, String last_name, String address, int income, String username, String password, int id){
-       Client client = new Client(last_name,first_name,address,income,username,password,id);
-       return client;
+       return Client.builder().clientId(id).address(address).fname(first_name).lname(last_name).user(username,password).numberOfAccount(0).myAccounts().build();
     }
 
     public Account createNewAccount(int balance, Client client){

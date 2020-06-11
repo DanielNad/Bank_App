@@ -7,6 +7,8 @@ public abstract class Person {
     private String first_name;
     private String address;
 
+    public Person(){}
+
     public Person(String last_name, String first_name, String address) {
         this.last_name = last_name;
         this.first_name = first_name;

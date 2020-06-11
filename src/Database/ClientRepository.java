@@ -11,23 +11,20 @@ public class ClientRepository implements ClientServicesInterface {
 
     @Override
     public Client createClient(ResultSet resultSet) {
-        Client client = null;
         try {
-            client = new Client(
-                    resultSet.getString("lname"),
-                    resultSet.getString("fname"),
-                    resultSet.getString("address"),
-                    resultSet.getInt("income"),
-                    resultSet.getString("username"),
-                    resultSet.getString("password"),
-                    resultSet.getInt("id"),
-                    resultSet.getInt("number_of_accounts")
-            );
+            Client client = Client.builder().lname(resultSet.getString("lname"))
+                    .fname(resultSet.getString("fname"))
+                    .address(resultSet.getString("address"))
+                    .income(resultSet.getInt("income"))
+                    .user( resultSet.getString("username"),resultSet.getString("password"))
+                    .numberOfAccount(resultSet.getInt("number_of_accounts"))
+                    .clientId(resultSet.getInt("id")).myAccounts().build();
             this.retrieveAccounts(client);
+            return client;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return client;
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package Model;
 
 public class ChildrenSaving extends Saving
 {
+    
     public ChildrenSaving(int client_id,int number_of_accounts) {
         super(client_id,number_of_accounts);
     }

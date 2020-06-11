@@ -1,8 +1,6 @@
 package Controller;
-import Database.BankerRepository;
-import Database.ClientRepository;
-import Model.BankManager;
-import Model.User;
+
+import Model.Account;
 import View.ViewApp;
 
 public class Main {
