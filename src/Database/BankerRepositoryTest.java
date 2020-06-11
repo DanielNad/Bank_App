@@ -11,27 +11,27 @@ class BankerRepositoryTest {
 
     @Test
     void validateBankerUser() {
-        assertEquals(true,bankerRepository.validateBankerUser(new User("admin","admin")));
-        assertEquals(false,bankerRepository.validateBankerUser(new User("xxxx","xxxx")));
+        assertTrue(bankerRepository.validateBankerUser(new User("admin", "admin")));
+        assertFalse(bankerRepository.validateBankerUser(new User("xxxx", "xxxx")));
     }
 
     @Test
     void validateBankerId() {
-        assertEquals(true,bankerRepository.validateBankerId(0));
-        assertEquals(false,bankerRepository.validateBankerId(1));
+        assertTrue(bankerRepository.validateBankerId(0));
+        assertFalse(bankerRepository.validateBankerId(1));
     }
 
     @Test
     void validateBankerUsername() {
-        assertEquals(true,bankerRepository.validateBankerUsername("admin"));
-        assertEquals(false,bankerRepository.validateBankerUsername("xxxx"));
+        assertTrue(bankerRepository.validateBankerUsername("admin"));
+        assertFalse(bankerRepository.validateBankerUsername("xxxx"));
     }
 
     @Test
     void validateBankMangaer() {
-        assertEquals(true,bankerRepository.validateBankMangaer("admin","admin"));
+        assertTrue(bankerRepository.validateBankMangaer("admin", "admin"));
         //DO NOT DELETE TEST FROM DB
-        assertEquals(false,bankerRepository.validateBankMangaer("test","test"));
-        assertEquals(false,bankerRepository.validateBankMangaer("xxxx","xxxx"));
+        assertFalse(bankerRepository.validateBankMangaer("test", "test"));
+        assertFalse(bankerRepository.validateBankMangaer("xxxx", "xxxx"));
     }
 }

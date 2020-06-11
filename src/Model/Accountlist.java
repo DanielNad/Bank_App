@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 public class Accountlist
 {
-    private HashMap<String,Account> list;
+    private final HashMap<String,Account> list;
 
     public Accountlist() {
-        this.list=new HashMap<String, Account>();
+        this.list= new HashMap<>();
     }
 
     public HashMap<String,Account> getList() {

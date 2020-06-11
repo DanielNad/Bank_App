@@ -3,7 +3,7 @@ package Model;
 public class Account
 {
    private int balance;
-   private String account_id;
+   private final String account_id;
 
    public Account(int balance,int client_id,int number_of_accounts) {
       this.balance = balance;
@@ -29,10 +29,6 @@ public class Account
 
    public void addToBalance(int money){
       this.balance+=money;
-   }
-
-   public void setAccountId(String account_id) {
-      this.account_id = account_id;
    }
 
    @Override
