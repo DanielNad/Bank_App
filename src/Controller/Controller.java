@@ -10,11 +10,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
 
-//TODO: JUnit test.
+
 //TODO: Video Clip.
 //TODO: Readme - Install, Links, Guides, Create tables if there are no existing ones already, Create admin.
-//TODO: Warning Clean-UP.
-//TODO: Code Clean-UP (Unused Lines).
 
 public class Controller {
     private Banker banker;
@@ -850,9 +848,7 @@ public class Controller {
             accountRepository.updateAccount(account);
             updateBankerPanel();
 
-            button.addActionListener(e1 -> {
-                dialog.setVisible(false);
-            });
+            button.addActionListener(e1 -> dialog.setVisible(false));
         });
         viewApp.getCreateNewChildrenAccountMainBankerJButton().addActionListener(e ->{
             JDialog dialog = new JDialog(f,"Create New Children Account");
