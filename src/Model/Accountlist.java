@@ -7,7 +7,7 @@ public class Accountlist
     private final HashMap<String,Account> list;
 
     public Accountlist() {
-        this.list= new HashMap<>();
+        this.list=new HashMap<String, Account>();
     }
 
     public HashMap<String,Account> getList() {
