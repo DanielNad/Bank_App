@@ -10,10 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
 
-
-//TODO: Video Clip.
-//TODO: Readme - Install, Links, Guides, Create tables if there are no existing ones already, Create admin.
-
 public class Controller {
     private Banker banker;
     private Client client;
