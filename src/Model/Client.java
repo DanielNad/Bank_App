@@ -1,10 +1,8 @@
 package Model;
 
-import lombok.Builder;
-
 import java.sql.*;
 
-public class Client extends Person implements DefaultClient
+public class Client extends Person
 {
     private int income;
     private Accountlist my_accounts;
@@ -77,13 +75,11 @@ public class Client extends Person implements DefaultClient
         this.clientId = clientId;
     }
 
-    @Override
     public void depositMoney(int sum, String accountid) {
         Account account = this.getMyAccounts().searchAccount(accountid);
         account.addToBalance(sum);
     }
 
-    @Override
     public boolean withdrawCash(int sum, String accountid) {
         Account account=this.getMyAccounts().searchAccount(accountid);
         if(account.getBalance()>=sum) {
@@ -93,7 +89,6 @@ public class Client extends Person implements DefaultClient
         return false;
     }
 
-    @Override
     public boolean transferMoney(int money, String from_id, Account to_id) {
 
         Account account1 = this.my_accounts.searchAccount(from_id);

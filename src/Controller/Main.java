@@ -1,6 +1,4 @@
 package Controller;
-
-import Model.Account;
 import View.ViewApp;
 
 public class Main {
