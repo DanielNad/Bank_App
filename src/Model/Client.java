@@ -11,25 +11,7 @@ public class Client extends Person
     private int number_of_accounts;
 
     public Client(){super();}
-    /*
-    public Client(String last_name, String first_name, String address, int income, String username, String password, int clientId) {
-        super(last_name, first_name, address);
-        this.income=income;
-        this.my_accounts=new Accountlist();
-        this.my_user=new User(username,password);
-        this.clientId=clientId;
-        this.number_of_accounts = 0;
-    }
 
-    public Client(String last_name, String first_name, String address, int income, String username, String password, int clientId,int number_of_accounts) {
-        super(last_name, first_name, address);
-        this.income=income;
-        this.my_accounts=new Accountlist();
-        this.my_user=new User(username,password);
-        this.clientId=clientId;
-        this.number_of_accounts = number_of_accounts;
-    }
-     */
     //Desing Pattern - Builder
     public static ClientBuilder builder(){
         return new ClientBuilder();
