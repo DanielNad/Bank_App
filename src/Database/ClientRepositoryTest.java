@@ -17,7 +17,7 @@ class ClientRepositoryTest {
 
     @Test
     void validateClientUser() {
-        assertTrue(clientRepository.validateClientUser(new User("daniel", "1")));
+        assertTrue(clientRepository.validateClientUser(new User("daniel", "123")));
         assertFalse(clientRepository.validateClientUser(new User("xxxx", "xxxx")));
     }
 
